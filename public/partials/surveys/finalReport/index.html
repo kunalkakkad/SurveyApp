@@ -1,0 +1,86 @@
+<div class="main-content">
+			<div class="main-content-inner">
+				<div class="page-content">
+					<div class="row">
+						<div class="col-xs-12">
+							<!-- PAGE CONTENT BEGINS -->
+							<div class="row">
+								<div class="col-xs-12">
+									<!-- PAGE CONTENT BEGINS -->
+									<div class="row">
+										<div class="col-xs-12 col-sm-12 col-md-12">
+											<div class="tabbable">
+												<ul class="nav nav-tabs nav-justified" id="myTab">
+													
+													<li ng-class="{active: $state.includes('surveys.finalReport.policy')}" ><a ui-sref="surveys.finalReport.policy">Policy</a></li>
+													<li ng-class="{active: $state.includes('surveys.finalReport.survey')}" ><a ui-sref="surveys.finalReport.survey">Survey</a></li>
+													<li ng-class="{active: $state.includes('surveys.finalReport.newparts')}" ><a ui-sref="surveys.finalReport.newparts">New Parts</a></li>
+													<!--<li ng-class="{active: $state.includes('surveys.finalReport.labour')}" ><a ui-sref="surveys.finalReport.labour">Labour</a></li>-->
+													<li ng-class="{active: $state.includes('surveys.finalReport.summary')}" ><a ui-sref="surveys.finalReport.summary">Summary</a></li>																										
+												
+												</ul>
+
+
+												<div class="tabcontent well-lg" ui-view="policy" ng-show="$state.includes('surveys.finalReport.policy')" class="col-sm-12"></div>
+												<div class="tabcontent well-lg" ui-view="survey" ng-show="$state.includes('surveys.finalReport.survey')" class="col-sm-12"></div>
+												<div class="tabcontent well-lg" ui-view="newparts" ng-show="$state.includes('surveys.finalReport.newparts')" class="col-sm-12"></div>
+												<!--<div class="tabcontent well-lg" ui-view="labour" ng-show="$state.includes('surveys.finalReport.labour')" class="col-sm-12"></div>-->
+												<div class="tabcontent well-lg" ui-view="summary" ng-show="$state.includes('surveys.finalReport.summary')" class="col-sm-12"></div>
+												
+												<!--REINSERT HERE IF ANYTHING GOES WRONG-->
+												
+											</div><!-- /.col -->
+											<!-- PAGE CONTENT ENDS -->
+										</div><!-- /.col -->
+									</div>
+									<div class="footer">
+										<div class="footer-inner">
+											<div>
+												<span><span>Surveyor</span> Application &copy; 2017</span>
+											</div>
+										</div>
+									</div><a class="btn-scroll-up btn btn-sm btn-inverse" href="#" id="btn-scroll-up"><i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i></a>
+								</div><!-- /.main-container -->
+								<!-- basic scripts -->
+								<!--[if !IE]> -->
+								 <!-- <![endif]-->
+								 <!--[if IE]>
+</script>
+<![endif]-->
+								 
+								<script type="text/javascript">
+								                            if ('ontouchstart' in document.documentElement) document.write("<script src='/app/vendor/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+								</script> 
+								 <!-- page specific plugin scripts -->
+								 <!-- ace scripts -->
+
+								<!-- inline scripts related to this page -->
+								 
+								<script type="text/javascript">
+								                            jQuery(function ($) {
+								                                $('#sidebar2').insertBefore('.page-content');
+								                                $('#navbar').addClass('h-navbar');
+								                                $('.footer').insertAfter('.page-content');
+
+								                                $('.page-content').addClass('main-content');
+
+								                                $('.menu-toggler[data-target="#sidebar2"]').insertBefore('.navbar-brand');
+
+
+								                                $(document).on('settings.ace.two_menu', function (e, event_name, event_val) {
+								                                    if (event_name == 'sidebar_fixed') {
+								                                        if ($('#sidebar').hasClass('sidebar-fixed')) $('#sidebar2').addClass('sidebar-fixed')
+								                                        else $('#sidebar2').removeClass('sidebar-fixed')
+								                                    }
+								                                }).triggerHandler('settings.ace.two_menu', ['sidebar_fixed', $('#sidebar').hasClass('sidebar-fixed')]);
+
+								                                $('#sidebar2[data-sidebar-hover=true]').ace_sidebar_hover('reset');
+								                                $('#sidebar2[data-sidebar-scroll=true]').ace_sidebar_scroll('reset', true);
+								                            })
+								</script>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>

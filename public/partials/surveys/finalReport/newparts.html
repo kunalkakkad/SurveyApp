@@ -1,0 +1,471 @@
+<div class = "col-md-12">
+    <div class = "row text-center" >    
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary"> <i class = "fa fa-plus"></i> Add</button>
+            <button type="button" class="btn btn-primary"><i class = "fa fa-file"></i> Modify</button>
+            <button type="button" class="btn btn-primary"><i class = "fa fa-floppy-o"></i> Save</button>
+            <button type="button" class="btn btn-primary"><i class = "fa fa-floppy-o"></i> Save As</button>
+            <button type="button" class="btn btn-primary"><i class = "fa fa-ban"></i> Cancel</button>
+            <button type="button" class="btn btn-primary"><i class = "fa fa-print"></i> Print</button>
+            <button type="button" class="btn btn-primary"><i class = "fa fa-times"></i> Close</button>
+        </div>  
+    </div>
+</div>
+
+<div class="tab-pane fade in active" id="newparts">
+    <div class="col-md-12">    
+    <div class="container ">    
+        
+        <br>
+        <br>
+        
+        <button type="button" ng-click = "deleteSelectedPart()" class="btn btn-primary"><i class = "fa fa-ban"></i> Delete Selected Part</button>
+        <button type="button" ng-click = "getPartsList()" class="btn btn-primary"><i class = "fa fa-refresh"></i> Reload Parts</button>
+        <button type="button" ng-click = "addPartsData()" class="btn btn-primary"><i class = "fa fa-plus"></i> Add row</button>        
+        <button type="button" ng-click = "updateNewParts()" class="btn btn-primary"><i class = "fa fa-plus"></i> Update table</button>
+                    
+        <br>
+        <div style = "margin-top: 10px;" class  = "container">								
+            <div id="grid1" ui-grid="partsTableGridOptions" ui-grid-selection ui-grid-edit class="newPartsGrid" ng-if="partsTableGridOptions"></div>
+        </div>
+        
+        <div class ="container">
+            <div class = "col-md-3 col-md-offset-6">
+                <div class = "form-group">
+                    <label for = "show_garage">Show Garage</label>
+                    <input name = "show_garage" ng-click = "activateGarageColumn()" ng-model = "new_parts.show_garage" type = "checkbox"/>
+                </div>
+            </div>
+            <div class = "col-md-3 ">
+                <div class = "form-group">
+                    <label for = "est_wo_tax">Estimate without tax</label>
+                    <input name = "est_wo_tax" ng-model = "new_parts.est_wo_tax_opt" type = "checkbox"/>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="alert alert-warning" role="alert">
+            <p>
+                <strong>Estimate :</strong> <span ng-bind = "calculations.Estimate_Total"></span>
+            </p>
+            <p>            
+                <strong>Assessed :</strong> <span ng-bind = "calculations.Assessed_Total"></span>
+            </p>
+            <p>            
+                <strong>Difference :</strong> <span ng-bind = "calculations.Difference"></span>
+            </p>
+            <p>
+                <strong>Painting :</strong> <span ng-bind = "calculations.Painting_Total"></span>
+            </p>
+            <p>            
+                <strong>Denting :</strong> <span ng-bind = "calculations.Denting_Total"></span>
+            </p>
+            <p>
+                <strong>Removing/Refitting :</strong> <span ng-bind = "calculations.Removing_Refitting_Total"></span>
+            </p>
+        </div>
+
+        <!--<div class="alert alert-warning" role="alert">
+            <div ng-if = "est_wo_tax">
+            <strong style = "margin-left: 22px;">Estimate(w/o tax) :</strong> <span class = "pull-right" ng-bind = "new_parts.est_wo_tax">444$</span>
+            <strong style = "margin-left: 250px;">Assessed(w/o tax) :</strong> <span class = "pull-right" ng-bind = "new_parts.ass_wo_tax">444$</span>
+            <strong style = "margin-left: 250px;">Difference :</strong> <span class = "pull-right" ng-bind = "new_parts.diff_wo_tax">444$</span>
+            </div>
+            <div ng-if = "!est_wo_tax">
+            <strong style = "margin-left: 22px;">Estimate(w. tax) :</strong> <span class = "pull-right" ng-bind = "new_parts.est_w_tax">444$</span>
+            <strong style = "margin-left: 250px;">Assessed(w. tax) :</strong> <span class = "pull-right" ng-bind = "new_parts.ass_w_tax">444$</span>
+            <strong style = "margin-left: 250px;">Difference :</strong> <span class = "pull-right" ng-bind = "new_parts.diff_w_tax">444$</span>
+            </div>
+            <div ng-if = "est_wo_tax">
+            </div>
+            <div ng-if = "!est_wo_tax">
+            </div>            
+            <strong style = "margin-left: 1px;">Removing/Refitting :</strong> <span class = "pull-right" ng-bind = "new_parts.removing_refitting">444$</span>
+            <strong style = "margin-left: 305px;">Denting :</strong> <span class = "pull-right" ng-bind = "new_parts.denting">444$</span>
+            <strong style = "margin-left: 265px;">Painting :</strong> <span class = "pull-right" ng-bind = "new_parts.painting">444$</span>
+            <div>
+                <strong style = "margin-left: 460px;">Total :</strong> <span class = "pull-right" ng-bind = "new_parts.overall_total">444$</span>
+                <strong style = "margin-left: 235px;">Overall Total :</strong> <span class = "pull-right" ng-bind = "new_parts.overall_Total">444$</span>
+            </div>  
+        </div>  -->
+
+        <br>
+        <br>
+
+        <!--<div class = "panel panel-default">
+            <ng-form name = "finalReportNewPartsForm">
+            <div class = "panel-heading">
+              <h3 class="panel-title">Add New Part</h3>
+            </div>
+            <div class = "panel panel-body">
+                
+                <div class="row">            
+                
+                    <div class="col-md-3">            
+                        <div class="form-group">
+                            <label for="part_name">Part Name</label> 
+                            <select name="part_name" ng-model="newPart.Part_Name" class="form-control" ng-change = "setPartType()" ng-options="part.Part_Name for part in finalReportTemp.newPartNames">
+                                <option value="" selected="selected">Select</option>
+                            </select>
+                        </div>                        
+                    </div>
+                    
+                    <div class="col-md-3">            
+                        <div class="form-group">
+                            <label for="part_remark">Damage</label> 
+                            <select name="part_remark" ng-model="newPart.Damages" class="form-control">
+                                <option ng-selected = "newPart.part_remark == ch.choice" ng-repeat="ch in remark_choices" value = "{{ch.choice}}">{{ch.choice}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3">            
+                        <div class="form-group">
+                            <label for="part_estimate">Estimate</label> 
+                            <input class="form-control" ng-pattern = "/^-?\d*(.\d+)?$/" name="part_estimate" ng-model="newPart.Estimated" type="text">
+                            <div class = "text-danger ng-cloak" ng-show = "!finalReportNewPartsForm.part_estimate.$pristine" ng-messages="finalReportNewPartsForm.part_estimate.$error">
+                                <p ng-message="pattern">Invalid. Please enter digits only.</p>                                                        						        
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="col-md-3">            
+                        <div class="form-group">
+                            <label for="part_assessed">Assessed</label> 
+                            <input class="form-control" ng-pattern = "/^-?\d*(.\d+)?$/" name="part_assessed" ng-model="newPart.Assessed" type="text">
+                            <div class = "text-danger ng-cloak" ng-show = "!finalReportNewPartsForm.part_assessed.$pristine" ng-messages="finalReportNewPartsForm.part_assessed.$error">
+                                <p ng-message="pattern">Invalid. Please enter digits only.</p>                                                        						        
+                            </div>
+                        </div>                        
+                    </div>                
+                </div>
+
+                <div class="row">            
+                
+                    <div class="col-md-3">            
+                        <div class="form-group">
+                            <label for="part_bill_sr">Bill Sr. No</label> 
+                            <input class="form-control" name="part_bill_sr" ng-model="newPart.Sr_No" type="text">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3">            
+                        <div class="form-group">
+                            <label for="part_hc">HC (in %)</label> 
+                            <input class="form-control" ng-pattern = "/^-?\d*(.\d+)?$/" name="part_hc" ng-model="newPart.HC" type="text">
+                        	<div class = "text-danger ng-cloak" ng-show = "!finalReportNewPartsForm.part_hc.$pristine" ng-messages="finalReportNewPartsForm.part_hc.$error">
+                                <p ng-message="pattern">Invalid. Please enter digits only.</p>                                                        						        
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3">            
+                        <div class="form-group">
+                            <label for="part_gst_tax">GST Tax (in %)</label> 
+                            <input class="form-control" ng-pattern = "/^-?\d*(.\d+)?$/" name="part_gst_tax" ng-model="newPart.GST" type="text">
+                            <div class = "text-danger ng-cloak" ng-show = "!finalReportNewPartsForm.part_gst_tax.$pristine" ng-messages="finalReportNewPartsForm.part_gst_tax.$error">
+                                <p ng-message="pattern">Invalid. Please enter digits only.</p>                                                        						        
+                            </div>
+                        </div>
+                    </div>                                    
+                
+                    <div class="col-md-3">            
+                        <div class="form-group">
+                            <label for="part_removing_refitting">Removing/Refitting</label> 
+                            <input class="form-control" ng-pattern = "/^-?\d*(.\d+)?$/" name="part_removing_refitting" ng-model="newPart.Removing_Refitting" type="text">
+                            <div class = "text-danger ng-cloak" ng-show = "!finalReportNewPartsForm.part_removing_refitting.$pristine" ng-messages="finalReportNewPartsForm.part_removing_refitting.$error">
+                                <p ng-message="pattern">Invalid. Please enter digits only.</p>                                                        						        
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">                                                                    
+                    <div class="col-md-3">            
+                        <div class="form-group">
+                            <label for="part_denting">Denting</label> 
+                            <input class="form-control" ng-pattern = "/^-?\d*(.\d+)?$/" name="part_denting" ng-model="newPart.Denting" type="text">
+                            <div class = "text-danger ng-cloak" ng-show = "!finalReportNewPartsForm.part_denting.$pristine" ng-messages="finalReportNewPartsForm.part_denting.$error">
+                                <p ng-message="pattern">Invalid. Please enter digits only.</p>                                                        						        
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3">            
+                        <div class="form-group">
+                            <label for="part_painting">Painting</label> 
+                            <input class="form-control" ng-pattern = "/^-?\d*(.\d+)?$/" name="part_painting" ng-model="newPart.Painting" type="text">
+                            <div class = "text-danger ng-cloak" ng-show = "!finalReportNewPartsForm.part_painting.$pristine" ng-messages="finalReportNewPartsForm.part_painting.$error">
+                                <p ng-message="pattern">Invalid. Please enter digits only.</p>                                                        						        
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="col-md-3">            
+                        <div class="form-group">
+                            <label for="part_type">Part Type</label> 
+                            <input class="form-control" name="part_type" ng-model="newPart.Part_Type" type="text" disabled>                    
+                        </div>
+                    </div>                
+
+                    <div class="col-md-3">            
+                        <div class="form-group">
+                            <label for="part_hsn_no">HSN No</label> 
+                            <input class="form-control" name="part_hsn_no" ng-model="newPart.HSN_No" type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div class ="row">
+                    <div class="col-md-3">            
+                        <div class="form-group">
+                            <label for="newPart.part_imt_23">IMT 23</label> 
+                            <input name="part_imt_23" ng-model="newPart.IMT_23" type="checkbox">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3">            
+                        <div class="form-group">
+                            <label for="labour">Labour</label> 
+                            <input class="form-control" name="labour" ng-pattern = "/^-?\d*(.\d+)?$/" ng-model="newPart.Labour" type="text">
+                        	<div class = "text-danger ng-cloak" ng-show = "!finalReportNewPartsForm.labour.$pristine" ng-messages="finalReportNewPartsForm.labour.$error">
+                                <p ng-message="pattern">Invalid. Please enter digits only.</p>                                                        						        
+                            </div>
+                        </div>
+                    </div>                                        
+                </div>
+
+            </div>
+
+            <div class = "panel-footer text-center">
+                <button type="button" ng-click = "addPartsData()" ng-disabled = "!finalReportNewPartsForm.$valid" class="btn btn-primary btn-sm"> <i class = "fa fa-plus"></i> Add</button>            
+            </div>
+            </ng-form>
+        </div>-->
+
+        <div class = "panel panel-default" ng-show = "finalReport.Commercial_vehicle">
+            <!--<div class = "panel-heading">
+            </div>-->
+            
+            <div class = "panel panel-body">
+                <!--Table here-->
+                <uib-tabset active="activeInd">                        
+                    <uib-tab index="1" heading="Cabin Assembly">
+                        <div class="panel-body">                          
+                            <div>
+                                <button type="button" class="btn btn-danger btn-sm" ng-click = "deleteCAD()" ng-disabled = "!ca_selected"><i class = "fa fa-trash"></i> Delete Cabin Assembly Data</button>
+                                <button type="button" class="btn btn-info btn-sm" ng-click = "updateCAD()"><i class = "fa fa-pencil"></i> Update Cabin Assembly Data</button>
+                            </div>                                        
+                            <br>
+                            <div id="grid3" ui-grid="cabinAssemblyTableGridOptions" ui-grid-selection ui-grid-edit class="cabinAssemblyGrid" ng-if="cabinAssemblyTableGridOptions"></div>                
+                            <ng-form name = "finalReportCabinAssemblyForm">
+                                <table style = "text-align: left;" class="table table-bordered">
+                                    <tr>
+                                        <th width="10%">#</th>
+                                        <th width="27%">Description</th>
+                                        <th width="27%">Estimate</th>
+                                        <th width="26%">Assessed</th>
+                                        <th width="10%">Action</th>
+                                    </tr>
+                                    <td>                                                              
+                                        <input class = "form-control" type = "text" ng-model = "final_no" disabled>                                                                                   
+                                    </td>
+                                    <td>
+                                        <input class = "form-control" type = "text" name = "description" ng-model="cbdata.Parts_Name">                                                                                                                       
+                                    </td>
+                                    <td>
+                                        <input class = "form-control" type = "text" ng-pattern = "/^-?\d*(.\d+)?$/" name = "estimated" ng-model="cbdata.Estimated">
+                                        <div class = "text-danger ng-cloak" ng-show = "!finalReportCabinAssemblyForm.estimated.$pristine" ng-messages="finalReportCabinAssemblyForm.estimated.$error">
+                                            <p ng-message="pattern">Invalid. Please enter digits only.</p>                                                        						        
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input class = "form-control" type = "text" ng-pattern = "/^-?\d*(.\d+)?$/" name = "assessed" ng-model="cbdata.Assessed">
+                                        <div class = "text-danger ng-cloak" ng-show = "!finalReportCabinAssemblyForm.assessed.$pristine" ng-messages="finalReportCabinAssemblyForm.assessed.$error">
+                                            <p ng-message="pattern">Invalid. Please enter digits only.</p>                                                        						        
+                                        </div>
+                                    </td>
+                                    <td class = "text-center">
+                                        <button style = "margin-top: 5px;" ng-click="addCabinAssemblyData();" ng-disabled = "!finalReportCabinAssemblyForm.$valid" type="button" class="btn btn-success btn-xs timingicon">
+                                            <i class="fa fa-plus-circle fa" aria-hidden="true"></i>
+                                        </button>
+                                    </td>                                    
+                                </table>
+                            </ng-form>
+                            <div class = "col-md-12 form-group">                              
+                                <div class = "row">                                  
+                                    <div class = "col-md-4 col-md-offset-4">
+                                        <label for = "min_amt">Estimated Amount:</label>
+                                            <input class = "form-control" type = "text"  ng-model = "finalReport.CabinAssemblyMaster.Estimated" name = "estimated" disabled>
+                                    </div>
+                                    <div class = "col-md-4">
+                                        <label for = "percent">Assessed Amount:</label>
+                                            <input class = "form-control" type = "text"  ng-model = "finalReport.CabinAssemblyMaster.Assessed" name = "assessed" disabled>
+                                    </div>                                  
+                                </div>
+                                <div class = "row">                                  
+                                    <div class = "col-md-4 col-md-offset-4">
+                                        <label for = "conveyance">Dep%:</label>
+                                            <input class = "form-control" type = "text" ng-change = "cabinAssemblyDepPerChange()" ng-model = "finalReport.CabinAssemblyMaster.Dep_Percent" name = "dep_percent">
+                                    </div>
+                                    <div class = "col-md-4">
+                                        <label for = "phot_rate">(-):</label>
+                                            <input class = "form-control" type = "text"  ng-model = "finalReport.CabinAssemblyMaster.Dep_Amount" name = "dep_amount" disabled>
+                                    </div>                                                                      
+                                </div>
+                                <div class = "row">                                  
+                                    <div class = "col-md-4 col-md-offset-4">
+                                        <label for = "conveyance">Salvage%:</label>
+                                            <input class = "form-control" type = "text"  ng-change = "cabinAssemblySalvagePerChange()" ng-model = "finalReport.CabinAssemblyMaster.Salvage_Percent" name = "salvage_percent">
+                                    </div>
+                                    <div class = "col-md-4">
+                                        <label for = "phot_rate">(-):</label>
+                                            <input class = "form-control" type = "text"  ng-model = "finalReport.CabinAssemblyMaster.Salvage_Amount" name = "salvage_amount">
+                                    </div>                                                                      
+                                </div>
+                                <div class = "row">                                  
+                                    <div class = "col-md-4 col-md-offset-8">
+                                        <!--Sub Total = Assessed amount - (Dep Amount + Salvage Amount)-->
+                                        <!--No column in the database for this, this must be calculated at runtime or when data is loaded TODO-->
+                                        <label>Sub Total:</label>
+                                            <span ng-bind = "cabinSubTotal()">
+                                    </div>                                                                      
+                                </div>
+                                <div class = "row">                                  
+                                    <div class = "col-md-4 col-md-offset-8">
+                                        <label for = "phot_rate">Cabin Glasses:</label>
+                                            <input class = "form-control" type = "text" ng-model = "finalReport.CabinAssemblyMaster.Cabin_Glass" name = "cabin_glass">
+                                    </div>                                                                      
+                                </div>
+                                <div class = "row">                                  
+                                    <div class = "col-md-4 col-md-offset-8">
+                                        <label for = "phot_rate">Labour:</label>
+                                            <input class = "form-control" type = "text" ng-model = "finalReport.CabinAssemblyMaster.Labour" name = "labour">
+                                    </div>                                                                      
+                                </div>
+                                <div class = "row">                                  
+                                    <div class = "col-md-4 col-md-offset-8">
+                                        <!--Net Total = Sub Total + (Cabin Glasses + Labour)-->
+                                        <!--No column in the database for this, this must be calculated at runtime or when data is loaded TODO-->                                            
+                                        <label>Net Total:</label>
+                                            <span ng-bind = "cabinNetTotal()">
+                                    </div>                                                                      
+                                </div>
+                            </div>                                                
+                        </div>                          
+                    </uib-tab>                        
+                    <uib-tab index="2" heading="Load Body">                      
+                        <div class="panel-body">                          
+                            <div>
+                                <button type="button" class="btn btn-danger btn-sm" ng-click = "deleteLBD()" ng-disabled = "!lb_selected"><i class = "fa fa-trash"></i> Delete selected Load Body data</button>
+                                <button type="button" class="btn btn-info btn-sm" ng-click = "updateLBD()"><i class = "fa fa-pencil"></i> Update Load Body Data</button>
+                            </div>            
+                            
+                            <br>
+
+                            <div id="grid3" ui-grid="loadBodyTableGridOptions" ui-grid-selection ui-grid-edit class="loadBodyGrid" ng-if="loadBodyTableGridOptions"></div>                
+                                <ng-form name = "finalReportLoadBodyForm">                            
+                                    <table style = "text-align: left;" class="table table-bordered">
+                                        <tr>
+                                            <th width="10%">#</th>
+                                            <th width="27%">Description</th>
+                                            <th width="27%">Estimate</th>
+                                            <th width="26%">Assessed</th>
+                                            <th width="10%">Action</th>
+                                        </tr>
+                                        <td>                                                              
+                                            <input class = "form-control" type = "text" ng-model = "final_no" disabled>                                                                                   
+                                        </td>
+                                        <td>
+                                            <input class = "form-control" type = "text" ng-model="lbdata.Parts_Name">                                                                                                                       
+                                        </td>
+                                        <td>
+                                            <input class = "form-control" type = "text" ng-pattern = "/^-?\d*(.\d+)?$/" name = "estimated" ng-model="lbdata.Estimated">
+                                            <div class = "text-danger ng-cloak" ng-show = "!finalReportLoadBodyForm.estimated.$pristine" ng-messages="finalReportLoadBodyForm.estimated.$error">
+                                                <p ng-message="pattern">Invalid. Please enter digits only.</p>                                                        						        
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input class = "form-control" type = "text" ng-pattern = "/^-?\d*(.\d+)?$/" name = "assessed" ng-model="lbdata.Assessed">
+                                            <div class = "text-danger ng-cloak" ng-show = "!finalReportLoadBodyForm.assessed.$pristine" ng-messages="finalReportLoadBodyForm.assessed.$error">
+                                                <p ng-message="pattern">Invalid. Please enter digits only.</p>                                                        						        
+                                            </div>
+                                        </td>
+                                        <td class = "text-center">
+                                            <button style = "margin-top: 5px;" ng-click="addLoadBodyData();" ng-disabled = "!finalReportLoadBodyForm.$valid" type="button" class="btn btn-success btn-xs timingicon">
+                                                <i class="fa fa-plus-circle fa" aria-hidden="true"></i>
+                                            </button>
+                                        </td>                                    
+                                    </table>
+                                </ng-form>
+                                <div class = "col-md-12 form-group">                              
+                                    <div class = "row">                                  
+                                        <div class = "col-md-4 col-md-offset-4">
+                                            <label for = "min_amt">Estimated Amount:</label>
+                                                <input class = "form-control" type = "text"  ng-model = "finalReport.LoadBodyMaster.Estimated" name = "estimate">
+                                        </div>
+                                        <div class = "col-md-4">
+                                            <label for = "percent">Assessed Amount:</label>
+                                                <input class = "form-control" type = "text"  ng-model = "finalReport.LoadBodyMaster.Assessed" name = "assessed">
+                                        </div>                                  
+                                    </div>
+                                    <div class = "row">                                  
+                                        <div class = "col-md-4 col-md-offset-4">
+                                            <label for = "conveyance">Dep%:</label>
+                                                <input class = "form-control" type = "text"  ng-change = "loadBodyDepPerChange()" ng-model = "finalReport.LoadBodyMaster.Dep_Percent" name = "dep_percent">
+                                        </div>
+                                        <div class = "col-md-4">
+                                            <label for = "phot_rate">(-):</label>
+                                                <input class = "form-control" type = "text"  ng-model = "finalReport.LoadBodyMaster.Dep_Amount" name = "dep_amount">
+                                        </div>                                                                      
+                                    </div>
+                                    <div class = "row">                                  
+                                        <div class = "col-md-4 col-md-offset-4">
+                                            <label for = "conveyance">Salvage%:</label>
+                                                <input class = "form-control" type = "text"  ng-change = "loadBodySalvagePerChange()" ng-model = "finalReport.LoadBodyMaster.Salvage_Percent" name = "salvage_percent">
+                                        </div>
+                                        <div class = "col-md-4">
+                                            <label for = "phot_rate">(-):</label>
+                                                <input class = "form-control" type = "text"  ng-model = "finalReport.LoadBodyMaster.Salvage_Amount" name = "salvage_amount">
+                                        </div>                                                                      
+                                    </div>
+                                    <div class = "row">                                  
+                                        <div class = "col-md-4 col-md-offset-8">
+                                            <label>Sub Total:</label>
+                                                <span ng-bind = "loadBodySubTotal()">
+                                        </div>                                                                      
+                                    </div>
+                                    <div class = "row">                                  
+                                        <div class = "col-md-4 col-md-offset-8">
+                                            <label for = "phot_rate">Labour:</label>
+                                                <input class = "form-control" type = "text"  ng-model = "finalReport.LoadBodyMaster.Labour" name = "labour">
+                                        </div>                                                                      
+                                    </div>
+                                    <div class = "row">                                  
+                                        <div class = "col-md-4 col-md-offset-8">
+                                            <label>Net Total:</label>
+                                                <span ng-bind = "loadBodyNetTotal()">
+                                        </div>                                                                      
+                                    </div>
+                                </div>
+                            </div>                      
+                        </uib-tab>                      
+                    </uib-tabset>
+                </div>
+            </div>  
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="partNameSelector.html">
+        <div class="input-group input-group-sm">        
+        	<select name="part_name" ng-model="newPart.Part_Name" class="form-control" ng-change = "setPartType()" ng-options="part.Part_Name for part in finalReportTemp.newPartNames">
+                <option value="" selected="selected">Select</option>
+            </select>        
+        </div>
+        <div class="text-center">
+            <button type = "button" ng-click= "closePType();" class="btn btn-sm btn-warning">Close</button>
+        </div>
+        
+</script>

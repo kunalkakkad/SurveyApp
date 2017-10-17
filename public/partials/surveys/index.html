@@ -1,0 +1,1143 @@
+<body>
+	<div class="main-container ace-save-state" id="main-container">
+		<script type="text/javascript">
+		          try { ace.settings.loadState('main-container') } catch (e) { }
+		</script>
+		<div class="sidebar h-sidebar navbar-collapse collapse ace-save-state" id="sidebar">
+			<script type="text/javascript">
+			             try { ace.settings.loadState('sidebar') } catch (e) { }
+			</script>
+			<ul class="nav nav-list">
+				<!--<li ng-class="{'active open': $state.includes('surveys.spotReport')}" class = "hover">
+					<a class="dropdown-toggle" ui-sref="surveys.spotReport.policy"><i class="menu-icon fa fa-file-text"></i> <span class="menu-text">Spot Report</span></a>
+				</li>-->
+				<!--<li ng-class="{'active open': $state.includes('surveys.interimReport')}" class = "hover">
+					<a class="dropdown-toggle" ui-sref="surveys.interimReport.policy"><i class="menu-icon fa fa-file-text"></i> <span class="menu-text">Interim Report</span></a>
+				</li>-->
+				<li ng-class="{'active open': $state.includes('surveys.finalReport')}" class = "hover">
+					<a class="dropdown-toggle" ui-sref="surveys.finalReport.policy"><i class="menu-icon fa fa-file-text"></i> <span class="menu-text">Final Report</span></a>
+				</li>
+				<!--<li ng-class="{'active open': $state.includes('surveys.statusReport')}" class = "hover">
+					<a class="dropdown-toggle" ui-sref="surveys.statusReport"><i class="menu-icon fa fa-file-text"></i> <span class="menu-text">Status Report</span></a>
+				</li>-->
+				<!--<li ng-class="{'active open': $state.includes('surveys.addendum')}" class = "hover">
+					<a class="dropdown-toggle" ui-sref="surveys.addendum.policy"><i class="menu-icon fa fa-file-text"></i> <span class="menu-text">Addendum</span></a>
+				</li>-->
+				<!--<li ng-class="{'active open': $state.includes('surveys.reinspection')}" class = "hover">
+					<a class="dropdown-toggle" ui-sref="surveys.reinspection.policy"><i class="menu-icon fa fa-file-text"></i> <span class="menu-text">ReInspection</span></a>
+				</li>-->
+				<!--<li ng-class="{'active open': $state.includes('surveys.valuation')}" class = "hover">
+					<a class="dropdown-toggle" ui-sref="surveys.valuation.policy"><i class="menu-icon fa fa-file-text"></i> <span class="menu-text">Valuation</span></a>
+				</li>-->
+				<!--<li ng-class="{'active open': $state.includes('surveys.billcheck')}" class = "hover">
+					<a class="dropdown-toggle" ui-sref="surveys.billcheck.policy"><i class="menu-icon fa fa-file-text"></i> <span class="menu-text">Bill Check</span></a>
+				</li>-->
+				<!--<li ng-class="{'active open': $state.includes('surveys.bills')}" class = "hover">
+					<a class="dropdown-toggle" ui-sref="surveys.bills"><i class="menu-icon fa fa-file-text"></i> <span class="menu-text">Bills</span></a>
+				</li>-->
+				<!--<li ng-class="{'active open': $state.includes('surveys.receipt')}" class = "hover">
+					<a class="dropdown-toggle" ui-sref="surveys.receipt"><i class="menu-icon fa fa-file-text"></i> <span class="menu-text">Receipt</span></a>
+				</li>-->
+				<!--<li ng-class="{'active open': $state.includes('surveys.settlementLetter') || $state.includes('surveys.commonLetter')}" class = "hover">
+					<a class="dropdown-toggle"><i class="menu-icon fa fa-file-text"></i> <span class="menu-text">Letters</span></a>
+					<ul class="submenu">
+                        <li class="hover">
+                            <a ui-sref="surveys.settlementLetter">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                Settlement Letter
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+
+                        <li class="hover">
+                            <a ui-sref="surveys.commonLetter">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                Common Letter
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+                    </ul>
+				</li>-->
+				<!--<li ng-class="{'active open': $state.includes('surveys.album')}" class = "hover">
+					<a class="dropdown-toggle" ui-sref="surveys.album"><i class="menu-icon fa fa-file-text"></i> <span class="menu-text">Album</span></a>
+				</li>
+				<li ng-class="{'active open': $state.includes('surveys.nonmotor')}" class = "hover">
+					<a class="dropdown-toggle" ui-sref="surveys.nonmotor"><i class="menu-icon fa fa-file-text"></i> <span class="menu-text">Non Motor</span></a>
+				</li>
+				<li ng-class="{'active open': $state.includes('surveys.analysis')}" class = "hover disabled">
+					<a class="dropdown-toggle" ui-sref="surveys.analysis"><i class="menu-icon fa fa-file-text"></i> <span class="menu-text">Analysis</span></a>
+				</li>-->
+				<li ng-class="" class = "hover">
+					<a class="dropdown-toggle"><i class="menu-icon fa fa-file-text"></i> <span class="menu-text">Masters</span></a>
+					<ul class="submenu">
+                        <li class="hover">
+                            <a ng-click = "insurerMaster()">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                Insurer Master
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                        <li class="hover">
+                            <a ng-click = "bankMaster()">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                Bank Master
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                        <li class="hover">
+                            <a ng-click = "branchMaster()">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                Branch Master
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                        <li class="hover">
+                            <a ng-click = "vehicleMaster()">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                Vehicle Master
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                        <li class="hover">
+                            <a ng-click = "garageMaster()">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                Garage Master
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                    </ul>
+				</li>
+			</ul><!-- /.nav-list -->
+		</div>
+		<div class="tabcontent well-lg" ui-view="spotReport" ng-show="$state.includes('surveys.spotReport')" class="col-sm-12"></div>		
+		<div class="tabcontent well-lg" ui-view="interimReport" ng-show="$state.includes('surveys.interimReport')" class="col-sm-12"></div>		
+		<div class="tabcontent well-lg" ui-view="finalReport" ng-show="$state.includes('surveys.finalReport')" class="col-sm-12"></div>		
+		<div class="tabcontent well-lg" ui-view="statusReport" ng-show="$state.includes('surveys.statusReport')" class="col-sm-12"></div>		
+		<div class="tabcontent well-lg" ui-view="addendum" ng-show="$state.includes('surveys.addendum')" class="col-sm-12"></div>		
+		<div class="tabcontent well-lg" ui-view="reinspection" ng-show="$state.includes('surveys.reinspection')" class="col-sm-12"></div>		
+		<div class="tabcontent well-lg" ui-view="valuation" ng-show="$state.includes('surveys.valuation')" class="col-sm-12"></div>		
+		<div class="tabcontent well-lg" ui-view="billcheck" ng-show="$state.includes('surveys.billcheck')" class="col-sm-12"></div>		
+		<div class="tabcontent well-lg" ui-view="bills" ng-show="$state.includes('surveys.bills')" class="col-sm-12"></div>		
+		<div class="tabcontent well-lg" ui-view="receipt" ng-show="$state.includes('surveys.receipt')" class="col-sm-12"></div>		
+		<div class="tabcontent well-lg" ui-view="settlementLetter" ng-show="$state.includes('surveys.settlementLetter')" class="col-sm-12"></div>		
+		<div class="tabcontent well-lg" ui-view="commonLetter" ng-show="$state.includes('surveys.commonLetter')" class="col-sm-12"></div>		
+		<div class="tabcontent well-lg" ui-view="album" ng-show="$state.includes('surveys.album')" class="col-sm-12"></div>		
+		<div class="tabcontent well-lg" ui-view="nonmotor" ng-show="$state.includes('surveys.nonmotor')" class="col-sm-12"></div>		
+		<div class="tabcontent well-lg" ui-view="analysis" ng-show="$state.includes('surveys.analysis')" class="col-sm-12"></div>		
+	</div>
+</body>
+
+<script type="text/ng-template" id="vehicleMaster.html">
+
+
+    <div class="modal-header">
+        <button type="button" class="close"  ng-click="cancel()" ><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title">Vehicle Master</h3>
+    </div>
+
+    <div class="modal-body">          
+        
+        <div class = "col-md-12 col-sm-12">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Existing List</h3>
+                </div>                
+
+                <!--29.08.17 - Removed ui-grid-edit like for insurers for same reason, selected vehicle's information will be populated in the fields 
+                from where the user will edit them.-->
+                <div id="grid3" ui-grid="vehicleTableGridOptions" ui-grid-selection class="vehicleGrid" ng-if="vehicleTableGridOptions"></div>                
+                
+                
+            </div>
+
+            <div>
+                <!--29.08.17 - Change ng-disabled condition to !vehicleHasBeenSelected after insurer deletion API is finished and tested TODO-->
+                <button type="button" class="btn btn-danger btn-sm" ng-click = "deleteVehicle()" ng-disabled = "true"><i class = "fa fa-trash"></i> Delete selected Insurer</button>
+            </div>
+
+            <br>
+
+        </div>
+        
+        <div class = "col-md-12 col-sm-12">
+
+          <div class="panel panel-default">
+            
+            <div class="panel-heading">
+              <h3 class="panel-title">Vehicle Details</h3>
+            </div>
+            
+            <div class="panel-body">
+                <div class = "panel panel-default">                
+                    <div class="panel-body">
+                    <ng-form name = "newVehicleForm">                                                                    
+                        <div class="col-md-12">                        
+                            <div class="row">                        
+                                <div class = "col-md-8">                                
+                                    <label for = "vehicle_name">Vehicle Name:</label>
+                                    <input class = "form-control" name = "vehicle_name" ng-pattern="/^[a-zA-Z\s]*$/" type = "text" ng-model = "selectedVehicle.Vehicle_Name" ng-required = "true">
+                                    <div class = "text-danger ng-cloak" ng-show = "!newVehicleForm.vehicle.$pristine" ng-messages="newVehicleForm.vehicle.$error">
+                                        <p ng-message="required">Please enter the Vehicle's name.</p>      
+                                        <p ng-message="pattern">Please enter only alphabets.</p>                                                        						        
+                                    </div>
+                                </div>
+                                <div class = "col-md-4">
+                                
+                                    <label for = "make_model">Make and Model:</label>
+                                    <input class = "form-control" name = "make_model" ng-pattern="/^[a-zA-Z\s]*$/" type = "text" ng-model = "selectedVehicle.Make_Model" ng-required = "true">
+                                    <div class = "text-danger ng-cloak" ng-show = "!newVehicleForm.make_model.$pristine" ng-messages="newVehicleForm.make_model.$error">
+                                        <p ng-message="required">Please enter the Vehicle's Make and Model.</p>      
+                                        <p ng-message="pattern">Please enter only alphabets.</p>                                                        						        
+                                    </div>
+                                </div>
+                            </div>  
+                            <div class="row">
+
+                                <div class = "col-md-4">
+                                
+                                    <label for = "body_type">Body Type:</label>
+                                    <input class = "form-control" name = "body_type" ng-pattern="/^[a-zA-Z\s]*$/" type = "text" ng-model = "selectedVehicle.Body_Type" ng-required = "true">            
+                                    <div class = "text-danger ng-cloak" ng-show = "!newVehicleForm.body_type.$pristine" ng-messages="newVehicleForm.body_type.$error">
+                                        <p ng-message="required">Please enter the Vehicle's Body Type.</p>      
+                                        <p ng-message="pattern">Please enter only alphabets.</p>                                                        						        
+                                    </div>
+                                </div>
+                                
+                                <div class ="col-md-4">
+                                
+                                    <label for = "tat">Vehicle Class:</label>
+                                    <input class = "form-control" name = "tat" type = "text" ng-model = "selectedVehicle.Vehicle_Class">
+                                
+                                </div>
+
+                                <div class ="col-md-4">
+                                
+                                    <label for = "party_code">Pre Accident Condition:</label>
+                                    <input class = "form-control" name = "party_code" type = "text" ng-model = "selectedVehicle.Pre_Accident_Condition">
+                                
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class = "col-md-4">                            
+                                    <label for = "fee_based_on">Registered Laden Weight:</label>
+                                    <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedVehicle.Reg_Laden_Wt">            
+                                </div>                                
+                                <div class ="col-md-4">                                
+                                    <label for = "tat">Unregistered Laden Weight:</label>
+                                    <input class = "form-control" name = "tat" type = "text" ng-model = "selectedVehicle.UnLaden_Wt">                                
+                                </div>
+                                <div class ="col-md-4">                                
+                                    <label for = "party_code">Seating Capacity:</label>
+                                    <input class = "form-control" name = "party_code" type = "text" ng-model = "selectedVehicle.Seating_Capacity">                                
+                                </div>
+                            </div>                            
+                            <div class="row">
+                                <div class = "col-md-4">                                
+                                    <label for = "fee_based_on">Cubic Capacity:</label>
+                                    <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedVehicle.Cubic_Capacity">            
+                                </div>                                
+                                <div class ="col-md-4">                                
+                                    <label for = "tat">Imposed Excess:</label>
+                                    <input class = "form-control" name = "tat" type = "text" ng-model = "selectedVehicle.Imposed_Excess">                                
+                                </div>
+                                <div class ="col-md-4">                                
+                                    <label for = "party_code">Compulsory Excess:</label>
+                                    <input class = "form-control" name = "party_code" type = "text" ng-model = "selectedVehicle.Compulsory_Excess">                                
+                                </div>
+                            </div>                            
+                            <div class="row">
+                                <div class = "col-md-4">                                
+                                    <label for = "fee_based_on">Tax Particulars:</label>
+                                    <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedVehicle.Tax_Particulars">            
+                                </div>                                
+                                <div class ="col-md-4">                                
+                                    <label for = "tat">Fuel Used:</label>
+                                    <input class = "form-control" name = "tat" type = "text" ng-model = "selectedVehicle.Fuel_Used">                                
+                                </div>
+                                <div class ="col-md-4">                                
+                                    <label for = "tat">Active:</label>
+                                    <input style = "margin-top: 35px;" name = "tat" type = "checkbox" ng-model = "selectedVehicle.Active">                                
+                                </div>
+                            </div>
+                        </div>
+                    </ng-form>
+                    </div>                
+                </div>
+                
+                <div class = "panel panel-default">                                                   
+                    <div class="panel-body">                          
+                        <div class = "panel-heading">
+                            <h5 class="panel-title">Available Part(s)</h5>                          
+                        </div>                            
+                        
+                        <div>
+                            <button type="button" class="btn btn-danger btn-sm" ng-click = "deletePart()" ng-disabled = "!vehiclePartHasBeenSelected"><i class = "fa fa-trash"></i> Delete selected Part</button>
+                            <button type="button" class="btn btn-info btn-sm" ng-click = "updateParts()"><i class = "fa fa-pencil"></i> Update Parts</button>
+                        </div>
+
+                        <br>
+                        
+                        <div id="grid3" ui-grid="vehiclePartsTableGridOptions" ui-grid-selection ui-grid-edit class="vehiclePartsGrid" ng-if="vehiclePartsTableGridOptions"></div>                                        
+
+                        <table style = "text-align: left;" class="table table-bordered">
+                            <tr>
+                                <th width="10%">#</th>
+                                <th width="27%"> Part Description</th>
+                                <th width="27%"> Rate</th>
+                                <th width="26%"> Type </th>
+                                <th width="10%"> Action</th>
+                            </tr>
+                            <td>                                                              
+                                <input class = "form-control" type = "text" ng-model = "newPart.Sr_No" disabled>                                                                                   
+                            </td>
+                            <td>
+                                <input class = "form-control" type = "text" ng-model = "newPart.Part_Name">                                                                                                                       
+                            </td>
+                            <td>
+                                <input class = "form-control" type = "text" ng-model = "newPart.Rate">                                                                                             
+                            </td>
+                            <td>
+                                <input class = "form-control" type = "text" ng-model = "newPart.Part_Type">                                                                                             
+                            </td>
+                            <td class = "text-center">
+                                <button style = "margin-top: 5px;" ng-click="addPart(newPart);" ng-disabled = "!vehicleHasBeenSelected || partAdditionInProgress" type="button" class="btn btn-success btn-xs timingicon">
+                                    <i class="fa fa-plus-circle fa" aria-hidden="true"></i>
+                                </button>
+                            </td>                
+                                                            
+                            
+                            <!--<tr ng-cloak ng-repeat="part in selectedVehicle['parts'] track by $index">                                          
+                                <td>
+                                    <input class = "form-control" type = "text" ng-model = "part.Sr_No"> 
+                                </td>
+                                <td>
+                                    <input class = "form-control" type = "text" ng-change = "showChange()" ng-model = "part.Part_Name">
+                                </td>
+                                <td>
+                                    <input class = "form-control" type = "text" ng-model = "part.Rate">
+                                </td>
+                                <td>
+                                    <input class = "form-control" type = "text" ng-model = "part.Part_Type">
+                                </td>
+                                <td class = "text-center">
+                                    <button ng-click="removePart($index);" type="button" class="btn btn-danger btn-xs">
+                                        <i class="fa fa-minus-circle fa" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                            </tr>-->
+                        </table>
+                                                        
+                    </div>                          
+                    
+                </div>
+
+            </div>
+          
+            <div class="panel-footer">
+            
+               <div class = "text-center">
+              <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-success" ng-click = "addVehicle()"> <i class = "fa fa-plus"></i> Add Vehicle</button>
+              <button type="button" class="btn btn-success" ng-disabled = "newVehicleForm.$invalid || savingVehicleData" ng-click = "saveVehicle()"> <i class = "fa fa-plus"></i> Create/Update Vehicle</button>
+              <!--<button type="button" class="btn btn-success"> <i class = "fa fa-plus"></i> Add</button>
+              <button type="button" class="btn btn-success"><i class = "fa fa-file"></i> Modify</button>-->
+              
+              <!--<button type="button" ng-click = "updateParts()" class="btn btn-success"><i class = "fa fa-floppy-o"></i> Save</button>-->
+              
+              <button type="button" class="btn btn-success"><i class = "fa fa-ban"></i> Cancel</button>
+              <button type="button" ng-click = "cancel()" class="btn btn-success"><i class = "fa fa-times"></i> Close</button>
+              </div>
+              </div>
+
+            </div>
+
+          </div>
+    
+        </div>
+        
+        <div class = "row text-center">
+    
+           
+            
+        </div>
+        
+        <!--<span> Hello</span>-->
+
+    </div>  
+
+</script>
+
+<script type="text/ng-template" id="branchMaster.html">
+
+
+    <div class="modal-header">
+        <button type="button" class="close"  ng-click="cancel()" ><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title">Branch Master</h3>
+    </div>
+
+    <div class="modal-body">          
+        
+        <div class = "col-md-12 col-sm-12">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Existing Client List</h3>
+                </div>
+                
+                <div id="grid3" ui-grid="insurerBranchTableGridOptions" ui-grid-selection ui-grid-edit class="insurerBranchGrid" ng-if="insurerBranchTableGridOptions"></div>                                
+                
+            </div>
+
+        </div>
+        
+        <div class = "col-md-12 col-sm-12"> 
+
+          <div class="panel panel-default">
+            
+            <div class="panel-heading">
+              <h3 class="panel-title">Branch Details</h3>
+            </div>
+            
+            <div class="panel-body">
+
+                <div class = "row">
+
+                    <div class = "col-md-8">
+
+                        <div class = "panel panel-default">
+                        
+                            <div class="panel-body">
+                                                        
+                                    <div class="col-md-12">
+                                    
+                                        <div class="row">
+                                              
+                                            <div class="col-md-12">                                              
+                                              <label for = "insurer">Insurer:</label>
+                                              <input class = "form-control" name = "insurer" type = "text" ng-model = "selectedInsurer.Insurer_Name">
+                                            </div>
+
+                                        </div>  
+
+                                        <div class="row">
+                                            
+                                            <div class="col-md-12">                                                                                          
+                                                <label for = "fee_based_on">Branch:</label>
+                                                <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedInsurerBranch.Branch_Name">                                                                          
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            
+                                            <div class="col-md-12">                                                                                                                                      
+                                                <label for = "fee_based_on">Address:</label>
+                                                <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedInsurerBranch.Address">            
+                                            </div>
+
+                                        </div>
+                                        
+                                        <div class="row">
+
+                                            <div class = "col-md-6">
+                                                  <label for = "fee_based_on">Phone:</label>
+                                                  <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedInsurerBranch.Office">            
+                                            </div>
+
+                                            <div class = "col-md-6">
+                                                  <label for = "fee_based_on">FAX:</label>
+                                                  <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedInsurerBranch.Fax">            
+                                            </div>
+
+                                        </div>
+                                        
+                                        <div class="row">
+                                            
+                                            <div class="col-md-12">                                                                                                                                      
+                                                <label for = "fee_based_on">E-Mail:</label>
+                                                <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedInsurerBranch.EMail">            
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            
+                                            <div class = "col-md-12">
+                                                <label for = "fee_based_on">Remark:</label>
+                                                <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedInsurerBranch.Remark">            
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                                        
+                            </div>
+                        
+                        </div> 
+
+                    </div>
+
+                    <div class = "col-md-4">
+                    
+                    <div class = "panel panel-default">
+                    
+                        <div class = "panel-body">
+
+                            <div class = "col-md-12">
+                            
+                                <div class = "row">
+                                    <label for = "contact_person">Contact Person:</label>
+                                    <input class = "form-control" name = "contact_person" type = "text" ng-model = "selectedInsurerBranch.contact_person">                                  
+                                </div>  
+
+                                <div class = "row">
+                                    <label for = "mobile">Mobile:</label>
+                                    <input class = "form-control" name = "contact_person" type = "text" ng-model = "selectedInsurerBranch.Mobile">                                  
+                                </div> 
+
+                                <div class = "row">
+                                    <label for = "designation">Designation:</label>
+                                    <input class = "form-control" name = "contact_person" type = "text" ng-model = "selectedInsurerBranch.Designation">                                  
+                                </div> 
+
+                                <div class = "row">
+                                    <label for = "active">Active:</label>
+                                    <input name = "active" type = "checkbox" ng-model = "selectedInsurerBranch.Active">                                  
+                                </div> 
+
+                            </div>  
+
+                        </div>
+
+                    </div>
+                    
+                    </div>
+
+                </div>
+
+            </div>
+          
+            <div class="panel-footer">
+            
+            <div class = "row text-center">
+    
+            <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-success"> <i class = "fa fa-plus"></i> Add</button>
+              <button type="button" class="btn btn-success"><i class = "fa fa-file"></i> Modify</button>
+              <button type="button" class="btn btn-success"><i class = "fa fa-floppy-o"></i> Save</button>
+              <button type="button" class="btn btn-success"><i class = "fa fa-ban"></i> Cancel</button>
+              <button type="button" class="btn btn-success"><i class = "fa fa-times"></i> Close</button>
+            </div>
+            
+        </div>
+
+            </div>
+
+          </div>
+    
+        </div>
+        
+        	<div class = "row text-center">
+    
+           
+            
+        </div>
+        
+        <!--<span> Hello</span>-->
+
+    </div>  
+
+</script>
+
+<script type="text/ng-template" id="bankMaster.html">
+
+
+    <div class="modal-header">
+        <button type="button" class="close"  ng-click="cancel()" ><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title">Bank Master</h3>
+    </div>
+
+    <div class="modal-body">          
+        
+        <div class = "col-md-12 col-sm-12">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Bank Account Master</h3>
+                    <small>Add/modify account details</small>
+                </div>
+                
+                <div id="grid3" ui-grid="bankTableGridOptions" ui-grid-selection ui-grid-edit class="bankGrid" ng-if="bankTableGridOptions"></div>                                
+                
+            </div>
+
+        </div>
+        
+        <div class = "col-md-12 col-sm-12"> 
+
+          <div class="panel panel-default">
+            
+            <div class="panel-heading">
+              <h3 class="panel-title">Bank Details</h3>
+            </div>
+            
+            <div class="panel-body">
+
+                <div class = "row">
+
+                    <div class = "col-md-8">
+
+                        <div class = "panel panel-default">
+                        
+                            <div class="panel-body">
+                                                        
+                                    <div class="col-md-12">
+                                    
+                                        <div class="row">
+                                              
+                                            <div class="col-md-12">                                              
+                                              <label for = "insurer">Bank:</label>
+                                              <input class = "form-control" name = "insurer" type = "text" ng-model = "selectedBank.Bank_Name">
+                                            </div>
+
+                                        </div>  
+
+                                        <div class="row">
+                                            
+                                            <div class="col-md-12">                                                                                          
+                                                <label for = "fee_based_on">A/C #:</label>
+                                                <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedBank.Account_No">                                                                          
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            
+                                            <div class="col-md-12">                                                                                                                                      
+                                                <label for = "fee_based_on">IFC Code:</label>
+                                                <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedBank.IFS_Code">            
+                                            </div>
+
+                                        </div>
+                                        
+                                        <div class="row">
+
+                                            <div class = "col-md-6">
+                                                  <label for = "fee_based_on">MICR:</label>
+                                                  <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedBank.MICR_No">            
+                                            </div>
+
+                                            <div class = "col-md-6">
+                                                  <label for = "fee_based_on">Address:</label>
+                                                  <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedBank.Address">            
+                                            </div>
+
+                                        </div>
+                                        
+                                        <div class="row">
+                                            
+                                            <div class="col-md-12">                                                                                                                                      
+                                                <label for = "fee_based_on">Phone:</label>
+                                                <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedBank.Office">            
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            
+                                            <div class = "col-md-4">
+                                                <label for = "fee_based_on">FAX:</label>
+                                                <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedBank.Fax">            
+                                            </div>
+
+                                            <div class = "col-md-4">
+                                                <label for = "fee_based_on">E-Mail:</label>
+                                                <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedBank.EMail">            
+                                            </div>
+
+                                            <div class = "col-md-4">
+                                                <label for = "fee_based_on">Remark:</label>
+                                                <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedBank.Remark">            
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                                        
+                            </div>
+                        
+                        </div> 
+
+                    </div>
+
+                    <div class = "col-md-4">
+                    
+                    <div class = "panel panel-default">
+                    
+                        <div class = "panel-body">
+
+                            <div class = "col-md-12">
+                            
+                                <div class = "row">
+                                    <label for = "contact_person">Contact Person:</label>
+                                    <input class = "form-control" name = "contact_person" type = "text" ng-model = "selectedBank.Contact_Person">                                  
+                                </div>  
+
+                                <div class = "row">
+                                    <label for = "mobile">Mobile:</label>
+                                    <input class = "form-control" name = "contact_person" type = "text" ng-model = "selectedBank.Mobile">                                  
+                                </div> 
+
+                                <div class = "row">
+                                    <label for = "designation">Designation:</label>
+                                    <input class = "form-control" name = "contact_person" type = "text" ng-model = "selectedBank.Designation">                                  
+                                </div> 
+
+                                <div class = "row">
+                                    <label for = "active">Active:</label>
+                                    <input name = "active" type = "checkbox" ng-model = "selectedBank.Active">                                  
+                                </div> 
+
+                            </div>  
+
+                        </div>
+
+                    </div>
+                    
+                    </div>
+
+                </div>
+
+            </div>
+          
+            <div class="panel-footer">
+            
+            <div class = "row text-center">
+    
+            <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+              <button type="button" ng-click = "addBank(selectedBank)" class="btn btn-success"> <i class = "fa fa-plus"></i> Add</button>
+              <button type="button" class="btn btn-success"><i class = "fa fa-file"></i> Modify</button>
+              <button type="button" class="btn btn-success"><i class = "fa fa-floppy-o"></i> Save</button>
+              <button type="button" class="btn btn-success"><i class = "fa fa-ban"></i> Cancel</button>
+              <button type="button" class="btn btn-success"><i class = "fa fa-times"></i> Close</button>
+            </div>
+            
+        </div>
+
+            </div>
+
+          </div>
+    
+        </div>
+        
+        	<div class = "row text-center">
+    
+           
+            
+        </div>
+        
+        <!--<span> Hello</span>-->
+
+    </div>  
+
+</script>
+
+<script type="text/ng-template" id="garageMaster.html">
+
+
+    <div class="modal-header">
+        <button type="button" class="close"  ng-click="cancel()" ><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title">Garage Master</h3>
+    </div>
+
+    <div class="modal-body">          
+        
+        <div class = "col-md-12 col-sm-12">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Existing Client List</h3>
+                </div>
+                
+                    <div id="grid3" ui-grid="garageTableGridOptions" ui-grid-selection ui-grid-edit class="garageBranchGrid" ng-if="garageTableGridOptions"></div>                                
+
+
+            </div>
+
+        </div>
+        
+        <div class = "col-md-12 col-sm-12"> 
+
+          <div class="panel panel-default">
+            
+            <div class="panel-heading">
+              <h3 class="panel-title">Garage Details</h3>
+            </div>
+            
+            <div class="panel-body">
+
+                <div class = "row">                  
+                                        
+                    <div class="col-md-12">
+                    
+                        <div class="row">
+                              
+                            <div class="col-md-12">                                              
+                              <label for = "insurer">Company:</label>
+                              <input class = "form-control" name = "insurer" type = "text" ng-model = "selectedGarage.Garage_Name">
+                            </div>
+
+                        </div>  
+
+                        <div class="row">
+                            
+                            <div class="col-md-12">                                                                                          
+                                <label for = "fee_based_on">Contact Person:</label>
+                                <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedGarage.Contact_Person">                                                                          
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            
+                            <div class="col-md-10">                                                                                                                                      
+                                <label for = "fee_based_on">Mobile:</label>
+                                <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedGarage.Contact_No">            
+                            </div>
+
+                            <div class="col-md-2" style = "margin-top: 35px;">                                                                                                                                      
+                                <label for = "fee_based_on">Authorized:</label>
+                                <input name = "fee_based_on" type = "checkbox" ng-model = "selectedGarage.Authorised">            
+                            </div>
+
+                        </div>
+                        
+                        <div class="row">
+
+                            <div class = "col-md-12">
+                                  <label for = "fee_based_on">Remark:</label>
+                                  <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedGarage.Remark">            
+                            </div>
+
+                        </div>
+                        
+                        <div class="row">
+                            
+                            <div class="col-md-12" style = "margin-top: 15px;">                                                                                                                                      
+                                <label for = "fee_based_on">Active:</label>
+                                <input name = "fee_based_on" type = "checkbox" ng-model = "selectedGarage.Active">            
+                            </div>
+
+                        </div>
+
+                    </div>      
+                   
+                </div>
+
+            </div>
+          
+            <div class="panel-footer">
+                
+                <div class = "row text-center">
+        
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                      <button type="button" class="btn btn-success"> <i class = "fa fa-plus"></i> Add</button>
+                      <button type="button" class="btn btn-success"><i class = "fa fa-file"></i> Modify</button>
+                      <button type="button" class="btn btn-success"><i class = "fa fa-floppy-o"></i> Save</button>
+                      <button type="button" class="btn btn-success"><i class = "fa fa-print"></i> Print</button>
+                      <button type="button" class="btn btn-success"><i class = "fa fa-ban"></i> Cancel</button>
+                      <button type="button" class="btn btn-success"><i class = "fa fa-times"></i> Close</button>
+                    </div>
+                
+                </div>
+            
+            </div>
+
+          </div>
+    
+        </div>
+        
+        	
+         <div class = "row text-center">
+    
+           
+            
+        </div>
+
+    </div>  
+
+</script>
+
+<script type="text/ng-template" id="insurerMaster.html">
+
+
+    <div class="modal-header">
+        <button type="button" class="close"  ng-click="cancel()" ><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title">Insurer Master</h3>
+    </div>
+
+    <div class="modal-body">          
+        
+        <div class = "col-md-12 col-sm-12">
+
+            <div class="panel panel-default">
+              <!-- Default panel contents -->
+                <div class="panel-heading">
+                    <h3 class="panel-title">Insurers List</h3>
+                </div>
+                
+                <!--24.08.17 Removed ui-grid-edit feature as update should be done on a per record basis for insurers ass opposed to the system 
+                used for insurer fees-->
+                <div id="grid3" ui-grid="insurerTableGridOptions" ui-grid-selection class="insurerGrid" ng-if="insurerTableGridOptions"></div>                                
+
+            </div>
+            
+            <div>
+                <!--24.08.17 - Change ng-disabled condition to !insurerHasBeenSelected after insurer deletion API is finished and tested TODO-->
+                <button type="button" class="btn btn-danger btn-sm" ng-click = "deleteInsurer()" ng-disabled = "true"><i class = "fa fa-trash"></i> Delete selected Insurer</button>
+            </div>
+            
+            <br>
+
+        </div>
+
+        <div class = "col-md-12 col-sm-12">
+
+          <div class="panel panel-default">
+            
+            <div class="panel-heading">
+                <h3 class="panel-title">Insurer Details<a class ="pull-right" uib-tooltip="Please fill the fields marked with a * in order to create a new Insurer." tooltip-placement="top" type="button"><i class="fa fa-info-circle"></i></a></h3>              
+            </div>
+            
+            <div class="panel-body">
+
+                <div class = "panel panel-default">
+                
+                    <div class="panel-body">
+                    
+                        <!--<div class = "container">-->
+                            <ng-form name = "newInsurerForm">
+                                <div class="col-md-12">
+                                
+                                    <div class="row">
+                            
+                                        <div class = "col-md-8">                                  
+                                            <label for = "insurer">Insurer: <span class="text text-danger">*</span></label>
+                                            <input class = "form-control" name = "insurer" type = "text" ng-pattern="/^[a-zA-Z\s]*$/" ng-model = "selectedInsurer.Insurer_Name" ng-required = "true">
+                                            <div class = "text-danger ng-cloak" ng-show = "!newInsurerForm.insurer.$pristine" ng-messages="newInsurerForm.insurer.$error">
+                                                <p ng-message="required">Please enter the Insurer's name.</p>      
+                                                <p ng-message="pattern">Please enter only alphabets.</p>                                                        						        
+                                            </div>
+                                        </div>
+                                        <div class = "col-md-4">
+                                            <label for = "initial">Initial (4 char): <span class="text text-danger">*</span></label>
+                                            <input class = "form-control" name = "initial" type = "text" ng-pattern="/^[a-zA-Z\s]*$/" ng-maxlength = "4" ng-model = "selectedInsurer.Short_Name" ng-required = "true">
+                                            <div class = "text-danger ng-cloak" ng-show = "!newInsurerForm.initial.$pristine" ng-messages="newInsurerForm.initial.$error">
+                                                <p ng-message="required">Please enter the Insurer's initials.</p>      
+                                                <p ng-message="pattern">Please enter only alphabets.</p>                                                        						        
+                                                <p ng-message="maxlength">The acronym is too long, please shorten it further.</p>                                                        						        
+                                            </div>
+                                        </div>
+
+                                    </div>  
+
+                                    <div class="row">
+
+                                        <div class = "col-md-4">                                    
+                                            <label for = "fee_based_on">Fee based on: <span class="text text-danger">*</span></label>
+                                            <input class = "form-control" name = "fee_based_on" type = "text" ng-pattern="/^[a-zA-Z\s]*$/" ng-model = "selectedInsurer.Fee_Based" ng-required = "true">            
+                                            <div class = "text-danger ng-cloak" ng-show = "!newInsurerForm.fee_based_on.$pristine" ng-messages="newInsurerForm.fee_based_on.$error">
+                                                <p ng-message="required">Please enter the Insurer's Fee Basis.</p>      
+                                                <p ng-message="pattern">Please enter only alphabets.</p>                                                        						        
+                                            </div>
+                                        </div>
+                                        
+                                        <div class ="col-md-4">
+                                        
+                                            <label for = "tat">TAT:</label>
+                                            <input class = "form-control" ng-pattern = "/^[0-9]*$/" name = "tat" type = "text"  ng-model = "selectedInsurer.TAT">
+                                            <div class = "text-danger ng-cloak" ng-show = "!newInsurerForm.tat.$pristine" ng-messages="newInsurerForm.tat.$error">
+                                                <p ng-message="pattern">Please enter only numbers.</p>                                                        						        
+                                            </div>
+                                        </div>
+
+                                        <div class ="col-md-4">
+                                        
+                                            <label for = "party_code">Party Code:</label>
+                                            <input class = "form-control" name = "party_code" type = "text"  ng-model = "selectedInsurer.Party_Code">
+                                        
+                                        </div>
+
+                                    </div>
+
+                                    <div class = "row">
+                                    
+                                        <div class = "col-md-8">
+
+                                            <label for = "rec_bank">Receiving Bank: <span class="text text-danger">*</span></label>
+                                            <!--<input class = "form-control" name = "rec_bank" type = "text"  ng-model = "selectedInsurer.Receiving_bank">-->
+                                            <ui-select ng-model="selectedInsurer.bank_id" ng-change = "loadBranches()" theme="bootstrap" title="Choose a Bank" ng-required = "true">
+                                                <ui-select-match placeholder="Select or search an Bank...">{{$select.selected.Bank_Name}}</ui-select-match>
+                                                    <ui-select-choices repeat="bank in masterBanksList | filter: $select.search">
+                                                        <div ng-bind-html="bank.Bank_Name | highlight: $select.search"></div>                                                        
+                                                    </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+
+                                    </div>
+
+                                    <div class = "row">
+
+                                        <div class = "col-md-10">
+                                        
+                                            <label for = "remark">Remark:</label>
+                                            <input class = "form-control" name = "remark" type = "text"  ng-model = "selectedInsurer.Remark">                                
+                                        
+                                        </div>
+                                        
+                                        <div class = "col-md-2">
+                                        
+                                            <label for = "active">Active:</label>
+                                            <input name = "Active" type = "checkbox"  ng-model = "selectedInsurer.Active">                                    
+                                        
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </ng-form>
+                        <!--</div>-->
+                   
+                    </div>
+                
+                </div>
+                
+                <div class = "panel panel-default">                              
+                    <uib-tabset active="activeInd">                        
+                        <uib-tab index="1" heading="Final">
+                            <div class="panel-body">                          
+                                <div>
+                                      <button type="button" class="btn btn-danger btn-sm" ng-click = "deleteFee()" ng-disabled = "!insurerFeesHasBeenSelected"><i class = "fa fa-trash"></i> Delete selected fee</button>
+                                      <button type="button" class="btn btn-info btn-sm" ng-click = "updateFees()"><i class = "fa fa-pencil"></i> Update fees</button>
+                                </div>            
+                                
+                                <br>
+
+                                <div id="grid3" ui-grid="insurerFeesTableGridOptions" ui-grid-selection ui-grid-edit class="insurerFeesGrid" ng-if="insurerFeesTableGridOptions"></div>                
+                                
+                                <table style = "text-align: left;" class="table table-bordered">
+                                    <tr>
+                                        <th width="10%">#</th>
+                                        <th width="27%"> From</th>
+                                        <th width="27%"> To</th>
+                                        <th width="26%"> Amount </th>
+                                        <th width="10%"> Action</th>
+                                    </tr>
+                                    <td>                                                              
+                                        <input class = "form-control" type = "text" ng-model = "final_no" disabled>                                                                                   
+                                    </td>
+                                    <td>
+                                        <input class = "form-control" type = "text" ng-model="data.Start">                                                                                                                       
+                                    </td>
+                                    <td>
+                                        <input class = "form-control" type = "text" ng-model="data.End">                                                                                             
+                                    </td>
+                                    <td>
+                                        <input class = "form-control" type = "text" ng-model="data.Amount">                                                                                             
+                                    </td>
+                                    <td class = "text-center">
+                                        <button style = "margin-top: 5px;" ng-click="addFees(data);" type="button" ng-disabled = "!insurerHasBeenSelected || feeAdditionInProgress" class="btn btn-success btn-xs timingicon">
+                                            <i class="fa fa-plus-circle fa" aria-hidden="true"></i>
+                                        </button>
+                                    </td>                                    
+                                </table>
+                          
+                                <div class = "col-md-12">                              
+                                    <div class = "row">                                  
+                                        <div class = "col-md-4">
+                                            <label for = "formula_amt">Formula Amount:</label>
+                                                <input class = "form-control" type = "text"  ng-model = "selectedInsurer.Formula_Amount" name = "formula_amt">
+                                        </div>
+                                        <div class = "col-md-4">
+                                            <label for = "min_amt">Min Amount:</label>
+                                                <input class = "form-control" type = "text"  ng-model = "selectedInsurer.Formula_Base_Amount" name = "min_amt">
+                                        </div>
+                                        <div class = "col-md-4">
+                                            <label for = "percent">Percent:</label>
+                                                <input class = "form-control" type = "text"  ng-model = "selectedInsurer.Formula_Percent" name = "percent">
+                                        </div>                                  
+                                    </div>
+                                    <div class = "row">                                  
+                                        <div class = "col-md-4">
+                                            <label for = "conveyance">Conveyance:</label>
+                                                <input class = "form-control" type = "text"  ng-model = "selectedInsurer.Final_Convey" name = "conveyance">
+                                        </div>
+                                        <div class = "col-md-4">
+                                            <label for = "phot_rate">Photo's Rate:</label>
+                                                <input class = "form-control" type = "text"  ng-model = "selectedInsurer.Photo_Rate" name = "phot_rate">
+                                        </div>
+                                        <div class = "col-md-4">
+                                            <label for = "km_rate">KM Rate:</label>
+                                                <input class = "form-control" type = "text"  ng-model = "selectedInsurer.KR_Rate" name = "km_rate">
+                                        </div>                                  
+                                    </div>
+                                </div>
+                            </div>                          
+                        </uib-tab>                        
+                        <uib-tab index="2" heading="Reinspection & Spot">                      
+                            <h5>Spot:</h5>
+                            <div class = "row">                          
+                                <div class = "col-md-6">                          
+                                    <label for = "spot_prof_fee">Prof. Fee:</label>
+                                        <input type = "text"  name="spot_prof_fee"  ng-model = "selectedInsurer.Spot_Fee" class = "form-group">                                    
+                                </div>                            
+                                <div class = "col-md-6">
+                                    <label for = "spot_conveyance">Conveyance:</label>                              
+                                        <input type = "text" name="spot_conveyance"  ng-model = "selectedInsurer.Spot_Convey" class = "form-group">                                                                        
+                                </div>                            
+                            </div>
+                            <br>
+                            <h5>ReInspection:</h5>
+                            <div class = "row">                              
+                                <div class = "col-md-6">
+                                    <label for = "reinsp_prof_fee">Prof. Fee:</label>
+                                        <input type = "text" name="reinsp_prof_fee"  ng-model = "selectedInsurer.ReInspection_Fee" class = "form-group">                                                                                                            
+                                </div>
+                                <div class = "col-md-6">
+                                    <label for = "reinsp_conveyance">Conveyance:</label>                        
+                                        <input type = "text" name="reinsp_conveyance"  ng-model = "selectedInsurer.ReInspection_Convey" class = "form-group">                                                                                                                                                
+                                </div>                            
+                            </div>                      
+                        </uib-tab>                      
+                    </uib-tabset>                                    
+                </div>
+
+            </div>
+          
+            <div class="panel-footer">
+            <div class = "text-center">
+              <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-success" ng-click = "addInsurer()"> <i class = "fa fa-plus"></i> Add Insurer</button>
+              <button type="button" class="btn btn-success" ng-disabled = "newInsurerForm.$invalid || savingInsurerData" ng-click = "saveInsurer()"> <i class = "fa fa-plus"></i> Create/Update Insurer</button>
+              <!--<button type="button" class="btn btn-success"><i class = "fa fa-file"></i> Modify</button>-->
+              <!--<button type="button" class="btn btn-success" ng-click = "editInsurer()" ng-disabled = "!insurerHasBeenSelected || insurerEditMode" ng-show = "!insurerEditMode"><i class = "fa fa-floppy-o"></i> Modify</button>-->
+              <!--<button type="button" class="btn btn-success" ng-click = "updateInsurer() || newInsurerForm.$invalid" ng-disabled = "!insurerHasBeenSelected || newInsurerForm.$invalid || savingInsurerData " ng-show = "insurerEditMode"><i class = "fa fa-floppy-o"></i> Update Insurer Data</button>-->
+              <!--<button type="button" class="btn btn-success"><i class = "fa fa-print"></i> Print</button>-->
+              <!--<button type="button" class="btn btn-success"><i class = "fa fa-ban"></i> Cancel</button>-->
+              <button type="button" ng-click = "ok()" class="btn btn-success"><i class = "fa fa-times"></i> Close</button>
+              </div>
+              </div>
+
+            </div>
+
+          </div>
+    
+        </div>                	
+        
+        <div class = "row text-center">                           
+        </div>        
+    </div>  
+</script>

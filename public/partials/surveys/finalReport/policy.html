@@ -1,0 +1,1557 @@
+<div class = "col-md-1">
+    <div class = "row text-center" style = "position: fixed; margin-left: -35px; margin-top: 43px;">    
+        <div class="btn-group-vertical" role="group" aria-label="Basic example">
+            <button type="button" ng-click = "getReportList();" class="btn btn-primary"> Load</button>
+            <!--<button type="button" class="btn btn-primary"> <i class = "fa fa-plus"></i> Add</button>-->
+            <!--<button type="button" class="btn btn-primary"><i class = "fa fa-file"></i> Modify</button>-->
+            <button type="button" ng-click = "saveData();" class="btn btn-primary"><i class = "fa fa-floppy-o"></i> Save</button>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" disabled><i class = "fa fa-floppy-o"></i> Export As</button>
+    
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                    <li><a class="dropdown-item" ng-click = "saveHandler('Spot');">Spot Report</a></li>
+                    <li><a class="dropdown-item" ng-click = "saveHandler('Interim');">Interim Report</a></li>
+                    <li><a class="dropdown-item" ng-click = "saveHandler('Reinspection');">Reinspection Report</a></li>
+                    <li><a class="dropdown-item" ng-click = "saveHandler('Valuation');">Valuation Report</a></li>                    
+                </div>
+            </div>
+            <!--<button type="button" class="btn btn-primary"><i class = "fa fa-ban"></i> Cancel</button>-->
+            <!--<button type="button" ng-click = "printToCart();" class="btn btn-primary"><i class = "fa fa-print"></i> Print</button>-->
+            <!--<button type="button" class="btn btn-primary"><i class = "fa fa-times"></i> Close</button>-->
+        </div>            
+    </div>
+</div>
+
+<div class="container col-md-11" id = "printSectionId">
+    <ng-form name = "finalReportPolicyForm">
+        
+    <br>
+    <br>
+
+    <div class="row">
+        
+        <div class="form-group col-md-3 col-sm-6">
+            <label for="ref_no">Ref #</label> 
+            <input class="form-control" name="ref_no" ng-model = "finalReport.Main.Survey_Ref" type="text" disabled>
+        </div>
+      
+        <div class="form-group col-md-3 col-md-3 dtpkr">
+            <label for="date">Date</label>             
+            <div class="input-group">
+                <input type="text" class="form-control" model-view-value="true" uib-datepicker-popup="dd/MM/yyyy"  ui-mask = "99/99/9999" ng-model = "finalReport.Main.Survey_Date" is-open="p_date_1.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-success btn-sm" ng-click="dpick_open()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+      
+        <div class="form-group col-md-3 col-sm-3">                        
+            <label for="vehicle">Vehicle</label> 
+            <div class="input-group">        
+                
+                <ui-select ng-model="finalReport.Main.Survey_Vehicle_ID" ng-change = "vehicleChange()" theme="bootstrap" title="Choose a Vehicle">
+                    <ui-select-match placeholder="Select or search a Vehicle...">{{$select.selected.Vehicle_Name}}</ui-select-match>
+                        <ui-select-choices repeat="vehicle in masterVehiclesList | filter: $select.search">
+                            <div ng-bind-html="vehicle.Vehicle_Name | highlight: $select.search"></div>
+                            <small ng-bind-html="vehicle.Vehicle_Class | highlight: $select.search"></small>
+                        </ui-select-choices>
+                </ui-select>
+
+                <!--<ui-select ng-model="Survey_Vehicle_ID" theme="select2" style="min-width: 300px;" title="Choose a vehicle" append-to-body="true">
+                    <ui-select-match placeholder="Select a vehicle...">{{$select.selected.Vehicle_Name}}</ui-select-match>
+                        <ui-select-choices repeat="vehicle in vehiclesList | propsFilter: {Vehicle_Name: $select.search}">
+                            <div ng-bind-html="vehicle.Vehicle_Name | highlight: $select.search"></div>
+                            <small>
+                            Name: {{vehicle.Vehicle_Name}}
+                            Class: <span ng-bind-html="''+vehicle.Vehicle_Class | highlight: $select.search"></span>
+                            </small>
+                        </ui-select-choices>
+                </ui-select>-->
+
+                <!--<ui-select ng-model="Survey_Vehicle_ID"
+                        theme="bootstrap"
+                        ng-disabled="ctrl.disabled"
+                        reset-search-input="false"
+                        style="width: 600px;"
+                        title="Choose an address"
+                        append-to-body="true">
+                <ui-select-match placeholder="Enter a vehicle name...">{{$select.selected.Vehicle_Name}}</ui-select-match>
+                <ui-select-choices repeat="vehicle in vehiclesList track by $index">
+                    <div ng-bind-html="vehicle.Vehicle_Name | highlight: $select.search"></div>
+                </ui-select-choices>
+                </ui-select>-->
+
+                <!--SELECTIZE THEME-->
+                <!--<ui-select ng-model="Survey_Vehicle_ID" theme="selectize" style="width: 300px;" title="Choose a vehicle" append-to-body="true">
+                    <ui-select-match placeholder="Select or search a vehicle in the list...">{{$select.selected.Vehicle_Name}}</ui-select-match>
+                        <ui-select-choices repeat="vehicle in vehiclesList | filter: $select.search">
+                            <span ng-bind-html="vehicle.Vehicle_Name | highlight: $select.search"></span>
+                            <small ng-bind-html="vehicle.Vehicle_Class | highlight: $select.search"></small>
+                        </ui-select-choices>
+                </ui-select>-->
+                
+                
+                <!--<ui-select search-enabled="true" name = "Survey_Vehicle_ID" ng-model = "finalReport.Main.survey_Vehicle_ID" theme="bootstrap" required>
+                    <ui-select-match>
+                        <span ng-bind="$select.selected.Vehicle_Name"></span>
+                    </ui-select-match>
+                    <ui-select-choices repeat="vehicle.Vehicle_Name as vehicle in vehicles | filter: $select.search"
+                        refresh="refreshVehicles($select.search)"
+                        refresh-delay="0">
+                        <div ng-bind-html="vehicle.Vehicle_Name | highlight: $select.search"></div>
+                            <small>
+                                Class: {{vehicle.Vehicle_Class}}
+                            </small>
+                    </ui-select-choices>
+                </ui-select>-->
+                <span class="input-group-btn">
+                    <button type = "button" ng-click = "vehicleMaster()" class = "btn btn-success btn-sm"> <i class = "fa fa-plus"></i></button>                            
+                </span>                
+            </div>
+            <div class = "text-danger ng-cloak" ng-show = "!finalReportPolicyForm.Survey_Vehicle_ID.$pristine" ng-messages="finalReportPolicyForm.Survey_Vehicle_ID.$error">                            
+                <p ng-message="required">Please select a vehicle.</p>
+            </div>
+        </div>
+    
+    </div>
+
+    <div class="row">   
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Policy details
+                </div>
+                <div class="panel-body">            
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                            <label for="policy_no">Policy #</label> 
+                            <input class="form-control" name="policy_no" ng-model = "finalReport.Main.Policy_No" type="text">
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                            <label for="endorsement">Endorsement</label> 
+                            <input class="form-control" name="endorsement" ng-model = "finalReport.Main.Policy_Endorsement" type="text">
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3 col-sm-3">
+                                <div class="form-group has-feedback" ng-class="{ 'has-error': finalReportPolicyForm.idv.$dirty && !finalReportPolicyForm.idv.$valid && !formSubmitted, 'has-success': (finalReportPolicyForm.idv.$dirty && finalReportPolicyForm.idv.$valid)}">
+                                    <label for="idv" class = "control-label">I.D.V.</label> 
+                                    <input class="form-control" name="idv" ng-pattern = "/^[0-9]*$/" ng-model = "finalReport.Main.IDV" type="text">
+                                    <div class = "text-danger ng-cloak" ng-show = "!finalReportPolicyForm.idv.$pristine" ng-messages="finalReportPolicyForm.idv.$error">                            
+                                        <p ng-message="pattern">Please enter only digits[0-9].</p>
+                                    </div>
+                                </div>
+                        </div>
+                        
+                        <div class="col-md-3 col-sm-3">   
+                            <div class="form-group">
+                                <label for="policy_type">Type</label> 
+                                <select name="policy_type" uib-popover-template="pTypePopover.templateUrl" popover-placement = "top-left" popover-is-open = "pTypePopover.popoverIsOpen" popover-trigger = "'none'" ng-model = "finalReport.Main.Policy_Type" class="form-control" ng-change = "pt_detect()">
+                                    <option ng-selected = "policy.policy_type == obj.type" ng-repeat="obj in policy_types" value = "{{obj.type}}">{{obj.type}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class = "row">
+                        
+                        <div class="form-group col-md-3 col-md-3 dtpkr">
+                            <label for="date">Insurance From</label>             
+                            <div class="input-group">
+                                <input type="text" name = "Insurance_from" class="form-control" model-view-value="true" uib-datepicker-popup="dd/MM/yyyy" ng-change = "setPInsuranceToDate()" ui-mask = "99/99/9999" ng-model = "finalReport.Main.Insurance_from" is-open="insurance_from_date.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" required/>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-success btn-sm" ng-click="insurance_from_dpick_open()"><i class="fa fa-calendar"></i></button>
+                                </span>                                
+                            </div>
+                            <div class = "text-danger ng-cloak" ng-show = "!finalReportPolicyForm.Insurance_from.$pristine" ng-messages="finalReportPolicyForm.Insurance_from.$error">                            
+                                <p ng-message="required">Please set the date.</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-3 col-md-3 dtpkr">
+                            <label for="date">Insurance To</label>             
+                            <div class="input-group">
+                                <input type="text" name = "Insurance_to" class="form-control" model-view-value="true" uib-datepicker-popup="dd/MM/yyyy" ui-mask = "99/99/9999"  ng-model = "finalReport.Main.Insurance_to" is-open="insurance_to_date.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" required/>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-success btn-sm" ng-click="insurance_to_dpick_open()"><i class="fa fa-calendar"></i></button>
+                                </span>                                
+                            </div>
+                            <div class = "text-danger ng-cloak" ng-show = "!finalReportPolicyForm.Insurance_to.$pristine" ng-messages="finalReportPolicyForm.Insurance_to.$error">                            
+                                <p ng-message="required">Please set the date.</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-sm-3">
+                            <label for="insurers">Insurers</label>                                   
+                            <div class="input-group">
+                                <!--<select name="Survey_Insurer_ID" ng-model = "finalReport.Main.Survey_Insurer_ID" class="form-control"  ng-options="obj.insurer for obj in insurers_list" required>
+                                </select>-->
+                                <ui-select ng-model="finalReport.Main.Survey_Insurer_ID" ng-change = "loadBranches()" theme="bootstrap" title="Choose a Vehicle">
+                                    <ui-select-match placeholder="Select or search an Insurer...">{{$select.selected.Insurer_Name}}</ui-select-match>
+                                        <ui-select-choices repeat="insurer in masterInsurersList | filter: $select.search">
+                                            <div ng-bind-html="insurer.Insurer_Name | highlight: $select.search"></div>
+                                            <small ng-bind-html="insurer.Short_Name | highlight: $select.search"></small>
+                                        </ui-select-choices>
+                                </ui-select>
+                                <!--<ui-select search-enabled="true" name = "Survey_Insurer_ID" ng-model = "finalReport.Main.Survey_Insurer_ID" theme="bootstrap" required>
+                                    <ui-select-match>
+                                        <span ng-bind="$select.selected.Insurer_Name"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="insurer.Insurer_Name as insurer in insurers | filter: $select.search"
+                                        refresh="refreshInsurers($select.search)"
+                                        refresh-delay="0">
+                                        <div ng-bind-html="insurer.Insurer_Name | highlight: $select.search"></div>
+                                            <small>
+                                                Acronym: {{insurer.Short_Name}}
+                                            </small>
+                                    </ui-select-choices>
+                                </ui-select>-->
+                                <span class="input-group-btn">
+                                    <button type = "button" ng-click = "insurerMaster()" class = "btn btn-success btn-sm"> <i class = "fa fa-plus"></i></button>                            
+                                </span>                                                    
+                            </div>
+                            <div class = "text-danger ng-cloak" ng-show = "!finalReportPolicyForm.Survey_Insurer_ID.$pristine" ng-messages="finalReportPolicyForm.Survey_Insurer_ID.$error">                            
+                                <p ng-message="required">Please select an Insurer</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-sm-3">
+                            <label for="insurance_office">Insurance Office</label> 
+                            <div class="input-group">
+                                <!--<select name="Survey_Branch_ID" ng-model = "finalReport.Main.Survey_Branch_ID" ng-change = "insuranceOfficeChange()" class="form-control" required>
+                                    <option ng-selected = "insurance_office == off.text" ng-repeat="off in insurance_offices" value = "{{off.text}}">{{off.text}}</option>
+                                </select>-->
+                                <ui-select ng-model="finalReport.Main.Survey_Branch_ID" theme="bootstrap" ng-change = "insOfficeSel()" title="Choose a Branch">
+                                    <ui-select-match placeholder="Select or search a Branch...">{{$select.selected.Branch_Name}}</ui-select-match>
+                                        <ui-select-choices repeat="branch in branches | filter: $select.search">
+                                            <div ng-bind-html="branch.Branch_Name | highlight: $select.search"></div>
+                                            <!--<small ng-bind-html="insurer.Short_Name | highlight: $select.search"></small>-->
+                                        </ui-select-choices>
+                                </ui-select>
+                                <span class="input-group-btn">
+                                    <button type = "button"  ng-click = "branchMaster()" class = "btn btn-success btn-sm"> <i class = "fa fa-plus"></i></button>                            
+                                </span>                                
+                            </div>                            
+                            <div class = "text-danger ng-cloak" ng-show = "!finalReportPolicyForm.Survey_Branch_ID.$pristine" ng-messages="finalReportPolicyForm.Survey_Branch_ID.$error">                            
+                                <p ng-message="required">Please select the Insurer's Office.</p>
+                            </div>
+                        </div>                                             
+
+                    </div>
+
+                    <div class="row">                                                    
+                        
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <label for="appointing_office">Appointing Office</label> 
+                                <!--<tags-input on-tag-added = "checkAppOff()" max-tags = "1" ng-model = "finalReport.Main.Appointing_Office" replace-spaces-with-dashes="false">
+                                    <auto-complete debounce-delay = "400" select-first-match = "false" highlight-matched-text = "false" source="loadAppointingOfficesList($query)" add-on-paste = "false"></auto-complete>
+                                </tags-input>-->
+                                <ui-select ng-model="finalReport.Main.Appointing_Office" theme="bootstrap" title="Choose a Branch">
+                                    <ui-select-match placeholder="Select or search a Branch...">{{$select.selected.Branch_Name}}</ui-select-match>
+                                        <ui-select-choices repeat="branch in branches | filter: $select.search">
+                                            <div ng-bind-html="branch.Branch_Name | highlight: $select.search"></div>
+                                            <!--<small ng-bind-html="insurer.Short_Name | highlight: $select.search"></small>-->
+                                        </ui-select-choices>
+                                </ui-select>
+                                <div class = "text-danger ng-cloak" ng-show = "!finalReportPolicyForm.appointing_office.$pristine" ng-messages="finalReportPolicyForm.appointing_office.$error">                            
+                                    <p ng-message="pattern">Please enter only alphabets.</p>
+                                </div>
+                            </div>
+                        </div>                        
+                        
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <label for="insured">Insured</label> 
+                                <input class="form-control" ng-blur = "setRegOwner()" ng-pattern="/^[a-zA-Z\s]*$/" name="insured" ng-model = "finalReport.Main.Insured_Name" type="text">
+                                <div class = "text-danger ng-cloak" ng-show = "!finalReportPolicyForm.insured.$pristine" ng-messages="finalReportPolicyForm.insured.$error">                            
+                                    <p ng-message="pattern">Please enter only alphabets.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                            <label for="address">Address</label> 
+                            <input class="form-control" name="address" ng-model = "finalReport.Main.Address" type="text">
+                            </div>
+                        </div>                        
+
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <label for="mobile">Mobile</label> 
+                                <input class="form-control" ng-pattern = "/^[0-9]*$/" ng-minlength = "10" ng-maxlength = "10" name="mobile" ng-model = "finalReport.Main.Mobile" type="text">
+                                <div class = "text-danger ng-cloak" ng-show = "!finalReportPolicyForm.mobile.$pristine" ng-messages="finalReportPolicyForm.mobile.$error">                            
+                                    <p ng-message="pattern">Please enter only digits[0-9].</p>
+                                    <p ng-message="minlength">Please enter a valid mobile no.</p>
+                                    <p ng-message="maxlength">Please enter a valid mobile no.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">                                      
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <label for="hpa">H.P.A.</label>
+                                <tags-input on-tag-added = "checkHPA()" max-tags = "1" ng-model = "finalReport.Main.HPA" replace-spaces-with-dashes="false">
+                                    <auto-complete debounce-delay = "400" select-first-match = "false" highlight-matched-text = "false" source="loadHPAList($query)" add-on-paste = "false"></auto-complete>
+                                </tags-input>
+                                <!--<select name="hpa" ng-model="hpa" class="form-control">
+                                    <option ng-selected = "hpa == obj.text" ng-repeat="obj in hpa_options" value = "{{obj.text}}">{{obj.text}}</option>
+                                </select>-->
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <label for="claim_no">Claim #</label> 
+                                <input class="form-control" name="claim_no" ng-model = "finalReport.Main.Claim_No" type="text">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6" style="margin-top: 25px;">                
+                            <button class="btn btn-primary btn-sm"  ng-click="policyChecklist()" type="button">
+                                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Checklist
+                            </button> 
+                        </div>                            
+                    </div>                                    
+        
+                </div>
+            </div><!--Second Panel-->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Vehicle Details
+                </div>
+                <div class="panel-body">
+                    <div class="row">                    
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <label for="reg_no">Registration #</label> 
+                                <input class="form-control" name="reg_no" ng-model = "finalReport.Vehicle_Details.Reg_No" ui-mask = "**-99-**-9999" type="text" required>
+                            </div>
+                            <div class = "text-danger ng-cloak" ng-show = "!finalReportPolicyForm.reg_no.$pristine" ng-messages="finalReportPolicyForm.reg_no.$error">                            
+                                <p ng-message="required">Please enter the registration Number.</p>
+                            </div>
+                        </div>
+                    
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <label for="reg_owner">Registered Owner</label> 
+                                <input class="form-control" ng-pattern="/^[a-zA-Z\s]*$/" name="reg_owner" ng-model = "finalReport.Vehicle_Details.Reg_Owner" type="text">
+                                <div class = "text-danger ng-cloak" ng-show = "!finalReportPolicyForm.reg_owner.$pristine" ng-messages="finalReportPolicyForm.reg_owner.$error">                            
+                                    <p ng-message="pattern">Please enter only alphabets.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                            <label for="owner_sr">Owner Sr#/Trs Dt</label> 
+                            <input class="form-control" name="owner_sr" ng-model = "finalReport.Vehicle_Details.Owner_Sr" type="text">
+                            </div>
+                        </div>
+                    
+                        <div class="form-group col-md-3 col-md-3 dtpkr">
+                            <label for="date">Date of Purchase</label>             
+                            <div class="input-group">
+                                <input type="text" class="form-control" model-view-value="true" uib-datepicker-popup="dd/MM/yyyy"  ui-mask = "99/99/9999" ng-model = "finalReport.Vehicle_Details.Date_Purchase" is-open="dt_purchase_date.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-success btn-sm" ng-click="dt_purchase_dpick_open()"><i class="fa fa-calendar"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                
+                    </div>
+            
+                    <div class = "row">                        
+                        <div class="form-group col-md-3 col-md-3 dtpkr">
+                            <label for="date">Date of Registration</label>             
+                            <div class="input-group">
+                                <input type="text" class="form-control" model-view-value="true" uib-datepicker-popup="dd/MM/yyyy"  ui-mask = "99/99/9999" ng-model = "finalReport.Vehicle_Details.Date_Reg_Purchase" is-open="dt_regis_date.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-success btn-sm" ng-click="dt_regis_dpick_open()"><i class="fa fa-calendar"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                            <label for="chassis_no">Chassis #</label> 
+                            <input class="form-control" name="chassis_no" ng-model = "finalReport.Vehicle_Details.Chassis_No" type="text">
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                            <label for="engine_no">Engine #</label> 
+                            <input class="form-control" name="engine_no" ng-model = "finalReport.Vehicle_Details.Engine_No" type="text">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                            <label for="mk_vr_md">Make/Variant/Mod</label> 
+                            <input class="form-control" name="mk_vr_md" ng-model = "finalReport.Vehicle_Details.Make_Model" type="text">
+                            </div>
+                        </div>                        
+                        
+                    </div>
+
+                    <div class = "row">
+                        <div class="col-md-3 col-sm-3 col-md-offset-3">
+                            <div class="form-group">
+                            <label for="chassis_chk">Chassis checked</label> 
+                            <input name="chassis_chk" ng-model = "finalReport.Vehicle_Details.Chassis_Phy" type="checkbox">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                            <label for="engine_chk">Engine checked</label> 
+                            <input name="engine_chk" ng-model = "finalReport.Vehicle_Details.Engine_Phy" type="checkbox">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class = "row">                                 
+
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <label for="body_type">Type of Body</label> 
+                                <input class="form-control" name="body_type" ng-pattern="/^[a-zA-Z\s]*$/" ng-model = "finalReport.Vehicle_Details.Body_Type" type="text">
+                                <div class = "text-danger ng-cloak" ng-show = "!finalReportPolicyForm.body_type.$pristine" ng-messages="finalReportPolicyForm.body_type.$error">                            
+                                    <p ng-message="pattern">Please enter only alphabets.</p>
+                                </div>
+                            </div>
+                        </div>                    
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">  
+                                <label for="body_color">Color of Body</label> 
+                                <input class="form-control" name="body_color" ng-pattern="/^[a-zA-Z\s]*$/" ng-model = "finalReport.Vehicle_Details.Vehicle_Color" type="text">
+                                <div class = "text-danger ng-cloak" ng-show = "!finalReportPolicyForm.body_color.$pristine" ng-messages="finalReportPolicyForm.body_color.$error">                            
+                                    <p ng-message="pattern">Please enter only alphabets.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-2">
+                            <div class="form-group">
+                                <label for="cubic_capacity">Cubic Capacity</label> 
+                                <input class="form-control" ng-pattern = "/^[0-9]*$/" ng-maxlength = "4" name="cubic_capacity" ng-model = "finalReport.Vehicle_Details.Cubic_Capacity" type="text">
+                                <div class = "text-danger ng-cloak" ng-show = "!finalReportPolicyForm.cubic_capacity.$pristine" ng-messages="finalReportPolicyForm.cubic_capacity.$error">                            
+                                    <p ng-message="pattern">Please enter only digits[0-9].</p>
+                                    <p ng-message="maxlength">Sorry, cannot be more than 4 digits.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1 col-sm-1" style = "margin-top: 25px;">
+                            <div class="form-group">
+                                <select name="cc_unit" ng-model = "finalReport.Vehicle_Details.cc_unit" class="form-control">
+                                    <option ng-selected = "policy.cc_unit == unit.unit" ng-repeat="unit in unit_types" value = "{{unit.unit}}">{{unit.unit}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <label for="anti_theft">Anti Theft</label> 
+                                <select name="anti_theft" ng-model = "finalReport.Vehicle_Details.Anti_Theft" class="form-control" >
+                                        <option ng-selected = "policy.anti_theft == at.type" ng-repeat="at in anti_theft_types" value = "{{at.type}}">{{at.type}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">            
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <label for="reg_laden_wt">Reg. Laden Wt.(Kgs)</label> 
+                                <input class="form-control" ng-pattern = "/^[0-9]*$/" name="reg_laden_wt" ng-model = "finalReport.Vehicle_Details.Reg_Wt" type="text">
+                                <div class = "text-danger ng-cloak" ng-show = "!finalReportPolicyForm.reg_laden_wt.$pristine" ng-messages="finalReportPolicyForm.reg_laden_wt.$error">                            
+                                    <p ng-message="pattern">Please enter only digits[0-9].</p>                            
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                            <label for="remark_rlw">Remark (If RLW N.A)</label> 
+                            <input class="form-control" name="remark_rlw" ng-model = "finalReport.Vehicle_Details.Reg_Wt_Remark" type="text">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <label for="unladen_wt">Unladen Wt.(Kgs)</label> 
+                                <input class="form-control" ng-pattern = "/^[0-9]*$/"  name="unladen_wt" ng-model = "finalReport.Vehicle_Details.UnLedan_Wt" type="text">
+                                <div class = "text-danger ng-cloak" ng-show = "!finalReportPolicyForm.unladen_wt.$pristine" ng-messages="finalReportPolicyForm.unladen_wt.$error">                            
+                                    <p ng-message="pattern">Please enter only digits[0-9].</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                            <label for="remark_ulw">Remark (if ULW N.A)</label> 
+                            <input class="form-control" name="remark_ulw" ng-model = "finalReport.Vehicle_Details.UnLedan_Wt_Remark" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">                            
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <label for="seating_cap">Seating Capacity</label> 
+                                <input class="form-control" name="seating_cap" ng-model = "finalReport.Vehicle_Details.Seating_Capacity" type="text">
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <label for="class">Class</label> 
+                                <input class="form-control" name="class" ng-model = "finalReport.Vehicle_Details.Vehicle_Class" type="text">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <label for="fuel_used">Fuel Used</label> 
+                                <input class="form-control" name="fuel_used" ng-model = "finalReport.Vehicle_Details.Fuel_Used" type="text">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <label for="odometer_reading">Odometer Reading</label> 
+                                <input class="form-control" name="odometer_reading" ng-pattern = "/^[0-9]*$/" ng-model = "finalReport.Vehicle_Details.SpeedoMeter" type="text">
+                                <div class = "text-danger ng-cloak" ng-show = "!finalReportPolicyForm.odometer_reading.$pristine" ng-messages="finalReportPolicyForm.odometer_reading.$error">                            
+                                    <p ng-message="pattern">Please enter only digits[0-9].</p>                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="row">              
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <label for="pre_accident_condition">Pre Accident Condition</label> 
+                                <input class="form-control" name="pre_accident_condition" ng-pattern="/^[a-zA-Z\s]*$/"  ng-model = "finalReport.Vehicle_Details.Pre_Accident_Condition" type="text">
+                                <div class = "text-danger ng-cloak" ng-show = "!finalReportPolicyForm.pre_accident_condition.$pristine" ng-messages="finalReportPolicyForm.pre_accident_condition.$error">                            
+                                    <p ng-message="pattern">Please enter only alphabets.</p>                            
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <label for="tax_particulars">Tax Particulars</label> 
+                                <input class="form-control" name="tax_particulars" ng-pattern="/^[a-zA-Z\s]*$/" ng-model = "finalReport.Vehicle_Details.Tax_Particulars" type="text">
+                                <div class = "text-danger ng-cloak" ng-show = "!finalReportPolicyForm.tax_particulars.$pristine" ng-messages="finalReportPolicyForm.tax_particulars.$error">                            
+                                    <p ng-message="pattern">Please enter only alphabets.</p>                            
+                                </div>
+                            </div>
+                        </div>
+
+                       <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="remark_vehicle_details">Remark</label>                                 
+                                <input-dropdown allow-custom-input="true" filter-list-method="vehicleRemarkGet(userInput)"
+                                    selected-item="finalReport.Vehicle_Details.Remark_Vehicle"
+                                    default-dropdown-items="dropdownItems">
+                                </input-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--8 Close-->
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Driving and License details
+                    </div>
+                    <div class="panel-body">
+                        <div class = "row">
+                            <div class="col-md-3 col-sm-3">
+                                <div class="form-group">
+                                <label for="driving_license_number">Driving License #</label>
+                                <input class="form-control" name="driving_license_number" ng-model = "finalReport.Vehicle_Details.Driving_LIC_No" type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3">                
+                                <div class="form-group">
+                                    <label for="driver_name">Driver Name</label> 
+                                    <input class="form-control" ng-pattern="/^[a-zA-Z\s]*$/" name="driver_name" ng-model = "finalReport.Vehicle_Details.Driver_Name" type="text">
+                                    <div class = "text-danger ng-cloak" ng-show = "!finalReportPolicyForm.driver_name.$pristine" ng-messages="finalReportPolicyForm.driver_name.$error">                            
+                                        <p ng-message="pattern">Please enter only alphabets.</p>                            
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3 col-md-3 dtpkr">
+                                <label for="date">Date of Birth</label>             
+                                <div class="input-group">
+                                    <input type="text" class="form-control" model-view-value="true" uib-datepicker-popup="dd/MM/yyyy"  ui-mask = "99/99/9999" ng-model = "finalReport.Vehicle_Details.Driver_DOB" is-open="date_of_birth_date.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-success btn-sm" ng-click="date_of_birth_dpick_open()"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3 col-md-3 dtpkr">
+                                <label for="date">Issue Date</label>             
+                                <div class="input-group">
+                                    <input type="text" class="form-control" model-view-value="true" uib-datepicker-popup="dd/MM/yyyy"  ui-mask = "99/99/9999" ng-model = "finalReport.Vehicle_Details.LIC_Issue_Date" is-open="issue_date_date.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-success btn-sm" ng-click="issue_date_dpick_open()"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </div>
+                            </div>                                                     
+                        </div>                                             
+                        <div class="row">                                                                      
+                            <div class="form-group col-md-3 col-md-3 dtpkr">
+                                <label for="date">Upto (NTV)</label>             
+                                <div class="input-group">
+                                    <input type="text" class="form-control" model-view-value="true" uib-datepicker-popup="dd/MM/yyyy"  ui-mask = "99/99/9999" ng-model = "finalReport.Vehicle_Details.LIC_Valid_to" is-open="upto_ntv_date.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-success btn-sm" ng-click="upto_ntv_dpick_open()"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-3 col-md-3 dtpkr">
+                                <label for="date">Valid From</label>             
+                                <div class="input-group">
+                                    <input type="text" class="form-control" model-view-value="true" uib-datepicker-popup="dd/MM/yyyy"  ui-mask = "99/99/9999" ng-model = "finalReport.Vehicle_Details.LIC_Valid_from" is-open="valid_from_date.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-success btn-sm" ng-click="valid_from_dpick_open()"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group col-md-3 col-md-3 dtpkr">
+                                <label for="date">Upto (TV)</label>             
+                                <div class="input-group">
+                                    <input type="text" class="form-control" model-view-value="true" uib-datepicker-popup="dd/MM/yyyy"  ui-mask = "99/99/9999" ng-model = "finalReport.Vehicle_Details.LIC_ReNewal_Date" is-open="upto_tv_date.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-success btn-sm" ng-click="upto_tv_dpick_open()"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </div>
+                            </div>       
+                            <div class="col-md-3 col-sm-3">                
+                                <div class="form-group">
+                                    <label for="issuing_authority">Issuing Authority</label> 
+                                    <input class="form-control" ng-pattern="/^[a-zA-Z\s]*$/" name="issuing_authority" ng-model = "finalReport.Vehicle_Details.LIC_Issuing_Autho" type="text">
+                                    <div class = "text-danger ng-cloak" ng-show = "!finalReportPolicyForm.issuing_authority.$pristine" ng-messages="finalReportPolicyForm.issuing_authority.$error">                            
+                                        <p ng-message="pattern">Please enter only alphabets.</p>                            
+                                    </div>
+                                </div>
+                            </div>                                     
+                        </div>
+                        <div class="row">                            
+                            <div class="col-md-6 col-sm-6">            
+                                <div class="form-group">
+                                    <label for="license_type">License Type</label> 
+                                    <input class="form-control" ng-pattern="/^[a-zA-Z\s]*$/" name="license_type" ng-model = "finalReport.Vehicle_Details.License_Type" type="text">
+                                    <div class = "text-danger ng-cloak" ng-show = "!finalReportPolicyForm.license_type.$pristine" ng-messages="finalReportPolicyForm.license_type.$error">                            
+                                        <p ng-message="pattern">Please enter only alphabets.</p>                            
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6">                        
+                                <div class="form-group">
+                                <label for="badge_number">Badge #</label> 
+                                <input class="form-control" name="badge_number" ng-model = "finalReport.Vehicle_Details.Badge_No" type="text">
+                                </div>
+                            </div>            
+                        </div>
+                        <div class="form-group">
+                            <label for="remark_driving_license_detail">Remark</label> 
+                            <textarea class="form-control" name="remark_driving_license_detail" ng-model = "finalReport.Vehicle_Details.Remark_Driver"rows="3"></textarea>
+                        </div>
+                    </div>
+                </div><!-- Second 4 column panel starts-->
+        
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Commercial Vehicle Details
+                            <input type = "checkbox" ng-model = "finalReport.Commercial_vehicle" name = "commercial_vehicle">                
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">            
+                            <div class="col-md-3">              
+                                <div class="form-group">
+                                    <label for="fitness_certificate_number">Fitness Certificate #</label> 
+                                    <input class="form-control" name="fitness_certificate_number" ng-model = "finalReport.Vehicle_Details.Fitness_Certificate" type="text" ng-disabled = "!finalReport.Commercial_vehicle">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3 col-md-3 dtpkr">
+                                <label for="date">Fitness From</label>             
+                                <div class="input-group">
+                                    <input ng-disabled = "!finalReport.Commercial_vehicle" ng-change = "setPFitnessToDate()" type="text" class="form-control" model-view-value="true" uib-datepicker-popup="dd/MM/yyyy"  ui-mask = "99/99/9999" ng-model = "finalReport.Vehicle_Details.Fitness_from" is-open="fitness_from_date.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-success btn-sm" ng-click="fitness_from_dpick_open()"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3 col-md-3 dtpkr">
+                                <label for="date">Fitness To</label>             
+                                <div class="input-group">
+                                    <input ng-disabled = "!finalReport.Commercial_vehicle" type="text" class="form-control" model-view-value="true" uib-datepicker-popup="dd/MM/yyyy"  ui-mask = "99/99/9999" ng-model = "finalReport.Vehicle_Details.Fitness_to" is-open="fitness_to_date.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-success btn-sm" ng-click="fitness_to_dpick_open()"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class = "col-md-3">            
+                                <div class="form-group">
+                                <label for="permit_no_issued_by">Permit #/ Issued By</label> 
+                                <input class="form-control" name="permit_no_issued_by" ng-model = "finalReport.Vehicle_Details.Permit_No" type="text" ng-disabled = "!finalReport.Commercial_vehicle">
+                                </div>
+                            </div>                            
+                        </div>
+                        <div class="row">                            
+                            <div class = "form-group col-md-3 col-md-3 dtpkr">
+                                <label for="date">Permit From</label>             
+                                <div class="input-group">
+                                    <input type="text" class="form-control" model-view-value="true" uib-datepicker-popup="dd/MM/yyyy" ng-change = "setPPermitToDate()" ui-mask = "99/99/9999" ng-model = "finalReport.Vehicle_Details.Permit_from" is-open="permit_from_date.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" ng-disabled = "!finalReport.Commercial_vehicle"/>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-success btn-sm" ng-click="permit_from_dpick_open()"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class = "form-group col-md-3 col-md-3 dtpkr">
+                                <label for="date">Permit To</label>             
+                                <div class="input-group">
+                                    <input type="text" class="form-control" model-view-value="true" uib-datepicker-popup="dd/MM/yyyy"  ui-mask = "99/99/9999" ng-model = "finalReport.Vehicle_Details.Permit_to" is-open="permit_to_date.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats"  ng-disabled = "!finalReport.Commercial_vehicle"/>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-success btn-sm" ng-click="permit_to_dpick_open()"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </div>
+                            </div>    
+                            <div class = "col-md-3">
+                                <div class="form-group">
+                                    <label for="permit_type">Type of permit</label> 
+                                    <input class="form-control" name="permit_type" ng-model = "finalReport.Vehicle_Details.Permit_Type" type="text"  ng-disabled = "!finalReport.Commercial_vehicle">
+                                </div>
+                            </div>
+                            <div class="col-md-3">     
+                                <div class="form-group">
+                                    <label for="authorization_num_validity">Authorization #/ Validity</label> 
+                                    <input class="form-control" name="authorization_num_validity" ng-model = "finalReport.Vehicle_Details.Authorization" type="text"  ng-disabled = "!finalReport.Commercial_vehicle">
+                                </div>
+                            </div>
+                        </div>                    
+                        <div class = "row">                                   
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="route_area_of_operation">Route/ Area of operation</label> 
+                                    <input ng-disabled = "!finalReport.Commercial_vehicle" class="form-control" name="route_area_of_operation" ng-model = "finalReport.Vehicle_Details.Route_Area" type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-form>        
+</div>  
+
+
+<script type="text/ng-template" id="policyChecklist.html">
+
+    <div class="modal-header">
+        <button type="button" class="close"  ng-click="cancel()" ><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title">Checklist</h3>
+    </div>
+
+    <div class="modal-body">          
+        <form name = "checklistForm" ng-submit="addPCLItem()" role = "form" enctype="multipart/form-data">
+            <table style = "text-align: left;" class="table table-bordered">
+                <tr>
+                    <th width="10%">Submitted?</th>
+                    <th width="80%">Item</th>
+                    <th width="10%">Action</th>
+                </tr>
+                <td class="text-center">                                                              
+                    <input type = "checkbox" name = "status" ng-model = "chkLst.Status">                                                                                  
+                </td>
+                <td>
+                    <input type = "text" name = "description" ng-model = "chkLst.Description" class = "form-control">
+                    <input style = "margin-top: 5px;" files-input name = "attached_file" type="file" ng-model="chkLst.Attached_File">            
+                </td>        
+                <td class="text-center">
+                    <!--<button style = "margin-top: 5px;" ng-click="addPCLItem();" type="button" class="btn btn-success btn-xs">
+                        <i class="fa fa-plus-circle fa" aria-hidden="true"></i>
+                    </button>-->
+					<input name="submitChecklistItem" type="submit" value="Upload" />
+                </td>                
+                                                
+                
+                <tr ng-cloak ng-repeat="item in finalReport.Check_List track by $index">                        
+                    <td class = "text-center">
+                            <input type="checkbox" ng-model="item.Status">
+                    </td>
+                    <td>
+                        <input type="text" ng-model="item.Description">
+                        <input style = "margin-top: 5px;" type="file" ng-model="item.Attached_File">
+                    </td>
+                    <td class = "text-center">
+                        <button ng-click="removePCLItem($index);" type="button" class="btn btn-danger btn-xs">
+                            <i class="fa fa-minus-circle fa" aria-hidden="true"></i>
+                        </button>
+                    </td>
+                </tr>                
+            </table>
+		<form>	
+    </div>
+</script>
+
+<script type="text/ng-template" id="insurerMaster.html">
+
+
+    <div class="modal-header">
+        <button type="button" class="close"  ng-click="cancel()" ><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title">Insurer Master</h3>
+    </div>
+
+    <div class="modal-body">          
+        
+        <div class = "col-md-12 col-sm-12">
+
+            <div class="panel panel-default">
+              <!-- Default panel contents -->
+                <div class="panel-heading">
+                    <h3 class="panel-title">Insurers List</h3>
+                </div>
+                
+                <!--24.08.17 Removed ui-grid-edit feature as update should be done on a per record basis for insurers ass opposed to the system 
+                used for insurer fees-->
+                <div id="grid3" ui-grid="insurerTableGridOptions" ui-grid-selection class="insurerGrid" ng-if="insurerTableGridOptions"></div>                                
+
+            </div>
+            
+            <div>
+                <!--24.08.17 - Change ng-disabled condition to !insurerHasBeenSelected after insurer deletion API is finished and tested TODO-->
+                <button type="button" class="btn btn-danger btn-sm" ng-click = "deleteInsurer()" ng-disabled = "true"><i class = "fa fa-trash"></i> Delete selected Insurer</button>
+            </div>
+            
+            <br>
+
+        </div>
+
+        <div class = "col-md-12 col-sm-12">
+
+          <div class="panel panel-default">
+            
+            <div class="panel-heading">
+                <h3 class="panel-title">Insurer Details<a class ="pull-right" uib-tooltip="Please fill the fields marked with a * in order to create a new Insurer." tooltip-placement="top" type="button"><i class="fa fa-info-circle"></i></a></h3>              
+            </div>
+            
+            <div class="panel-body">
+
+                <div class = "panel panel-default">
+                
+                    <div class="panel-body">
+                    
+                        <!--<div class = "container">-->
+                            <ng-form name = "newInsurerForm">
+                                <div class="col-md-12">
+                                
+                                    <div class="row">
+                            
+                                        <div class = "col-md-8">                                  
+                                            <label for = "insurer">Insurer: <span class="text text-danger">*</span></label>
+                                            <input class = "form-control" name = "insurer" type = "text" ng-pattern="/^[a-zA-Z\s]*$/" ng-model = "selectedInsurer.Insurer_Name" ng-required = "true">
+                                            <div class = "text-danger ng-cloak" ng-show = "!newInsurerForm.insurer.$pristine" ng-messages="newInsurerForm.insurer.$error">
+                                                <p ng-message="required">Please enter the Insurer's name.</p>      
+                                                <p ng-message="pattern">Please enter only alphabets.</p>                                                        						        
+                                            </div>
+                                        </div>
+                                        <div class = "col-md-4">
+                                            <label for = "initial">Initial (4 char): <span class="text text-danger">*</span></label>
+                                            <input class = "form-control" name = "initial" type = "text" ng-pattern="/^[a-zA-Z\s]*$/" ng-maxlength = "4" ng-model = "selectedInsurer.Short_Name" ng-required = "true">
+                                            <div class = "text-danger ng-cloak" ng-show = "!newInsurerForm.initial.$pristine" ng-messages="newInsurerForm.initial.$error">
+                                                <p ng-message="required">Please enter the Insurer's initials.</p>      
+                                                <p ng-message="pattern">Please enter only alphabets.</p>                                                        						        
+                                                <p ng-message="maxlength">The acronym is too long, please shorten it further.</p>                                                        						        
+                                            </div>
+                                        </div>
+
+                                    </div>  
+
+                                    <div class="row">
+
+                                        <div class = "col-md-4">                                    
+                                            <label for = "fee_based_on">Fee based on: <span class="text text-danger">*</span></label>
+                                            <input class = "form-control" name = "fee_based_on" type = "text" ng-pattern="/^[a-zA-Z\s]*$/" ng-model = "selectedInsurer.Fee_Based" ng-required = "true">            
+                                            <div class = "text-danger ng-cloak" ng-show = "!newInsurerForm.fee_based_on.$pristine" ng-messages="newInsurerForm.fee_based_on.$error">
+                                                <p ng-message="required">Please enter the Insurer's Fee Basis.</p>      
+                                                <p ng-message="pattern">Please enter only alphabets.</p>                                                        						        
+                                            </div>
+                                        </div>
+                                        
+                                        <div class ="col-md-4">
+                                        
+                                            <label for = "tat">TAT:</label>
+                                            <input class = "form-control" ng-pattern = "/^[0-9]*$/" name = "tat" type = "text"  ng-model = "selectedInsurer.TAT">
+                                            <div class = "text-danger ng-cloak" ng-show = "!newInsurerForm.tat.$pristine" ng-messages="newInsurerForm.tat.$error">
+                                                <p ng-message="pattern">Please enter only numbers.</p>                                                        						        
+                                            </div>
+                                        </div>
+
+                                        <div class ="col-md-4">
+                                        
+                                            <label for = "party_code">Party Code:</label>
+                                            <input class = "form-control" name = "party_code" type = "text"  ng-model = "selectedInsurer.Party_Code">
+                                        
+                                        </div>
+
+                                    </div>
+
+                                    <div class = "row">
+                                    
+                                        <div class = "col-md-8">
+
+                                            <label for = "rec_bank">Receiving Bank: <span class="text text-danger">*</span></label>
+                                            <!--<input class = "form-control" name = "rec_bank" type = "text"  ng-model = "selectedInsurer.Receiving_bank">-->
+                                            <ui-select ng-model="selectedInsurer.bank_id" ng-change = "loadBranches()" theme="bootstrap" title="Choose a Bank" ng-required = "true">
+                                                <ui-select-match placeholder="Select or search an Bank...">{{$select.selected.Bank_Name}}</ui-select-match>
+                                                    <ui-select-choices repeat="bank in masterBanksList | filter: $select.search">
+                                                        <div ng-bind-html="bank.Bank_Name | highlight: $select.search"></div>                                                        
+                                                    </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+
+                                    </div>
+
+                                    <div class = "row">
+
+                                        <div class = "col-md-10">
+                                        
+                                            <label for = "remark">Remark:</label>
+                                            <input class = "form-control" name = "remark" type = "text"  ng-model = "selectedInsurer.Remark">                                
+                                        
+                                        </div>
+                                        
+                                        <div class = "col-md-2">
+                                        
+                                            <label for = "active">Active:</label>
+                                            <input name = "Active" type = "checkbox"  ng-model = "selectedInsurer.Active">                                    
+                                        
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </ng-form>
+                        <!--</div>-->
+                   
+                    </div>
+                
+                </div>
+                
+                <div class = "panel panel-default">                              
+                    <uib-tabset active="activeInd">                        
+                        <uib-tab index="1" heading="Final">
+                            <div class="panel-body">                          
+                                <div>
+                                      <button type="button" class="btn btn-danger btn-sm" ng-click = "deleteFee()" ng-disabled = "!insurerFeesHasBeenSelected"><i class = "fa fa-trash"></i> Delete selected fee</button>
+                                      <button type="button" class="btn btn-info btn-sm" ng-click = "updateFees()"><i class = "fa fa-pencil"></i> Update fees</button>
+                                </div>            
+                                
+                                <br>
+
+                                <div id="grid3" ui-grid="insurerFeesTableGridOptions" ui-grid-selection ui-grid-edit class="insurerFeesGrid" ng-if="insurerFeesTableGridOptions"></div>                
+                                
+                                <table style = "text-align: left;" class="table table-bordered">
+                                    <tr>
+                                        <th width="10%">#</th>
+                                        <th width="27%"> From</th>
+                                        <th width="27%"> To</th>
+                                        <th width="26%"> Amount </th>
+                                        <th width="10%"> Action</th>
+                                    </tr>
+                                    <td>                                                              
+                                        <input class = "form-control" type = "text" ng-model = "final_no" disabled>                                                                                   
+                                    </td>
+                                    <td>
+                                        <input class = "form-control" type = "text" ng-model="data.Start">                                                                                                                       
+                                    </td>
+                                    <td>
+                                        <input class = "form-control" type = "text" ng-model="data.End">                                                                                             
+                                    </td>
+                                    <td>
+                                        <input class = "form-control" type = "text" ng-model="data.Amount">                                                                                             
+                                    </td>
+                                    <td class = "text-center">
+                                        <button style = "margin-top: 5px;" ng-click="addFees(data);" type="button" ng-disabled = "!insurerHasBeenSelected || feeAdditionInProgress" class="btn btn-success btn-xs timingicon">
+                                            <i class="fa fa-plus-circle fa" aria-hidden="true"></i>
+                                        </button>
+                                    </td>                                    
+                                </table>
+                          
+                                <div class = "col-md-12">                              
+                                    <div class = "row">                                  
+                                        <div class = "col-md-4">
+                                            <label for = "formula_amt">Formula Amount:</label>
+                                                <input class = "form-control" type = "text"  ng-model = "selectedInsurer.Formula_Amount" name = "formula_amt">
+                                        </div>
+                                        <div class = "col-md-4">
+                                            <label for = "min_amt">Min Amount:</label>
+                                                <input class = "form-control" type = "text"  ng-model = "selectedInsurer.Formula_Base_Amount" name = "min_amt">
+                                        </div>
+                                        <div class = "col-md-4">
+                                            <label for = "percent">Percent:</label>
+                                                <input class = "form-control" type = "text"  ng-model = "selectedInsurer.Formula_Percent" name = "percent">
+                                        </div>                                  
+                                    </div>
+                                    <div class = "row">                                  
+                                        <div class = "col-md-4">
+                                            <label for = "conveyance">Conveyance:</label>
+                                                <input class = "form-control" type = "text"  ng-model = "selectedInsurer.Final_Convey" name = "conveyance">
+                                        </div>
+                                        <div class = "col-md-4">
+                                            <label for = "phot_rate">Photo's Rate:</label>
+                                                <input class = "form-control" type = "text"  ng-model = "selectedInsurer.Photo_Rate" name = "phot_rate">
+                                        </div>
+                                        <div class = "col-md-4">
+                                            <label for = "km_rate">KM Rate:</label>
+                                                <input class = "form-control" type = "text"  ng-model = "selectedInsurer.KR_Rate" name = "km_rate">
+                                        </div>                                  
+                                    </div>
+                                </div>
+                            </div>                          
+                        </uib-tab>                        
+                        <uib-tab index="2" heading="Reinspection & Spot">                      
+                            <h5>Spot:</h5>
+                            <div class = "row">                          
+                                <div class = "col-md-6">                          
+                                    <label for = "spot_prof_fee">Prof. Fee:</label>
+                                        <input type = "text"  name="spot_prof_fee"  ng-model = "selectedInsurer.Spot_Fee" class = "form-group">                                    
+                                </div>                            
+                                <div class = "col-md-6">
+                                    <label for = "spot_conveyance">Conveyance:</label>                              
+                                        <input type = "text" name="spot_conveyance"  ng-model = "selectedInsurer.Spot_Convey" class = "form-group">                                                                        
+                                </div>                            
+                            </div>
+                            <br>
+                            <h5>ReInspection:</h5>
+                            <div class = "row">                              
+                                <div class = "col-md-6">
+                                    <label for = "reinsp_prof_fee">Prof. Fee:</label>
+                                        <input type = "text" name="reinsp_prof_fee"  ng-model = "selectedInsurer.ReInspection_Fee" class = "form-group">                                                                                                            
+                                </div>
+                                <div class = "col-md-6">
+                                    <label for = "reinsp_conveyance">Conveyance:</label>                        
+                                        <input type = "text" name="reinsp_conveyance"  ng-model = "selectedInsurer.ReInspection_Convey" class = "form-group">                                                                                                                                                
+                                </div>                            
+                            </div>                      
+                        </uib-tab>                      
+                    </uib-tabset>                                    
+                </div>
+
+            </div>
+          
+            <div class="panel-footer">
+            <div class = "text-center">
+              <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-success" ng-click = "addInsurer()"> <i class = "fa fa-plus"></i> Add Insurer</button>
+              <button type="button" class="btn btn-success" ng-disabled = "newInsurerForm.$invalid || savingInsurerData" ng-click = "saveInsurer()"> <i class = "fa fa-plus"></i> Create/Update Insurer</button>
+              <!--<button type="button" class="btn btn-success"><i class = "fa fa-file"></i> Modify</button>-->
+              <!--<button type="button" class="btn btn-success" ng-click = "editInsurer()" ng-disabled = "!insurerHasBeenSelected || insurerEditMode" ng-show = "!insurerEditMode"><i class = "fa fa-floppy-o"></i> Modify</button>-->
+              <!--<button type="button" class="btn btn-success" ng-click = "updateInsurer() || newInsurerForm.$invalid" ng-disabled = "!insurerHasBeenSelected || newInsurerForm.$invalid || savingInsurerData " ng-show = "insurerEditMode"><i class = "fa fa-floppy-o"></i> Update Insurer Data</button>-->
+              <!--<button type="button" class="btn btn-success"><i class = "fa fa-print"></i> Print</button>-->
+              <!--<button type="button" class="btn btn-success"><i class = "fa fa-ban"></i> Cancel</button>-->
+              <button type="button" ng-click = "ok()" class="btn btn-success"><i class = "fa fa-times"></i> Close</button>
+              </div>
+              </div>
+
+            </div>
+
+          </div>
+    
+        </div>                	
+        
+        <div class = "row text-center">                           
+        </div>        
+    </div>  
+</script>
+
+<script type="text/ng-template" id="vehicleMaster.html">
+
+
+    <div class="modal-header">
+        <button type="button" class="close"  ng-click="cancel()" ><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title">Vehicle Master</h3>
+    </div>
+
+    <div class="modal-body">          
+        
+        <div class = "col-md-12 col-sm-12">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Existing List</h3>
+                </div>                
+
+                <!--29.08.17 - Removed ui-grid-edit like for insurers for same reason, selected vehicle's information will be populated in the fields 
+                from where the user will edit them.-->
+                <div id="grid3" ui-grid="vehicleTableGridOptions" ui-grid-selection class="vehicleGrid" ng-if="vehicleTableGridOptions"></div>                
+                
+                
+            </div>
+
+            <div>
+                <!--29.08.17 - Change ng-disabled condition to !vehicleHasBeenSelected after insurer deletion API is finished and tested TODO-->
+                <button type="button" class="btn btn-danger btn-sm" ng-click = "deleteVehicle()" ng-disabled = "true"><i class = "fa fa-trash"></i> Delete selected Insurer</button>
+            </div>
+
+            <br>
+
+        </div>
+        
+        <div class = "col-md-12 col-sm-12">
+
+          <div class="panel panel-default">
+            
+            <div class="panel-heading">
+              <h3 class="panel-title">Vehicle Details</h3>
+            </div>
+            
+            <div class="panel-body">
+                <div class = "panel panel-default">                
+                    <div class="panel-body">
+                    <ng-form name = "newVehicleForm">                                                                    
+                        <div class="col-md-12">                        
+                            <div class="row">                        
+                                <div class = "col-md-8">                                
+                                    <label for = "vehicle_name">Vehicle Name:</label>
+                                    <input class = "form-control" name = "vehicle_name" ng-pattern="/^[a-zA-Z\s]*$/" type = "text" ng-model = "selectedVehicle.Vehicle_Name" ng-required = "true">
+                                    <div class = "text-danger ng-cloak" ng-show = "!newVehicleForm.vehicle.$pristine" ng-messages="newVehicleForm.vehicle.$error">
+                                        <p ng-message="required">Please enter the Vehicle's name.</p>      
+                                        <p ng-message="pattern">Please enter only alphabets.</p>                                                        						        
+                                    </div>
+                                </div>
+                                <div class = "col-md-4">
+                                
+                                    <label for = "make_model">Make and Model:</label>
+                                    <input class = "form-control" name = "make_model" ng-pattern="/^[a-zA-Z\s]*$/" type = "text" ng-model = "selectedVehicle.Make_Model" ng-required = "true">
+                                    <div class = "text-danger ng-cloak" ng-show = "!newVehicleForm.make_model.$pristine" ng-messages="newVehicleForm.make_model.$error">
+                                        <p ng-message="required">Please enter the Vehicle's Make and Model.</p>      
+                                        <p ng-message="pattern">Please enter only alphabets.</p>                                                        						        
+                                    </div>
+                                </div>
+                            </div>  
+                            <div class="row">
+
+                                <div class = "col-md-4">
+                                
+                                    <label for = "body_type">Body Type:</label>
+                                    <input class = "form-control" name = "body_type" ng-pattern="/^[a-zA-Z\s]*$/" type = "text" ng-model = "selectedVehicle.Body_Type" ng-required = "true">            
+                                    <div class = "text-danger ng-cloak" ng-show = "!newVehicleForm.body_type.$pristine" ng-messages="newVehicleForm.body_type.$error">
+                                        <p ng-message="required">Please enter the Vehicle's Body Type.</p>      
+                                        <p ng-message="pattern">Please enter only alphabets.</p>                                                        						        
+                                    </div>
+                                </div>
+                                
+                                <div class ="col-md-4">
+                                
+                                    <label for = "tat">Vehicle Class:</label>
+                                    <input class = "form-control" name = "tat" type = "text" ng-model = "selectedVehicle.Vehicle_Class">
+                                
+                                </div>
+
+                                <div class ="col-md-4">
+                                
+                                    <label for = "party_code">Pre Accident Condition:</label>
+                                    <input class = "form-control" name = "party_code" type = "text" ng-model = "selectedVehicle.Pre_Accident_Condition">
+                                
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class = "col-md-4">                            
+                                    <label for = "fee_based_on">Registered Laden Weight:</label>
+                                    <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedVehicle.Reg_Laden_Wt">            
+                                </div>                                
+                                <div class ="col-md-4">                                
+                                    <label for = "tat">Unregistered Laden Weight:</label>
+                                    <input class = "form-control" name = "tat" type = "text" ng-model = "selectedVehicle.UnLaden_Wt">                                
+                                </div>
+                                <div class ="col-md-4">                                
+                                    <label for = "party_code">Seating Capacity:</label>
+                                    <input class = "form-control" name = "party_code" type = "text" ng-model = "selectedVehicle.Seating_Capacity">                                
+                                </div>
+                            </div>                            
+                            <div class="row">
+                                <div class = "col-md-4">                                
+                                    <label for = "fee_based_on">Cubic Capacity:</label>
+                                    <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedVehicle.Cubic_Capacity">            
+                                </div>                                
+                                <div class ="col-md-4">                                
+                                    <label for = "tat">Imposed Excess:</label>
+                                    <input class = "form-control" name = "tat" type = "text" ng-model = "selectedVehicle.Imposed_Excess">                                
+                                </div>
+                                <div class ="col-md-4">                                
+                                    <label for = "party_code">Compulsory Excess:</label>
+                                    <input class = "form-control" name = "party_code" type = "text" ng-model = "selectedVehicle.Compulsory_Excess">                                
+                                </div>
+                            </div>                            
+                            <div class="row">
+                                <div class = "col-md-4">                                
+                                    <label for = "fee_based_on">Tax Particulars:</label>
+                                    <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedVehicle.Tax_Particulars">            
+                                </div>                                
+                                <div class ="col-md-4">                                
+                                    <label for = "tat">Fuel Used:</label>
+                                    <input class = "form-control" name = "tat" type = "text" ng-model = "selectedVehicle.Fuel_Used">                                
+                                </div>
+                                <div class ="col-md-4">                                
+                                    <label for = "tat">Active:</label>
+                                    <input style = "margin-top: 35px;" name = "tat" type = "checkbox" ng-model = "selectedVehicle.Active">                                
+                                </div>
+                            </div>
+                        </div>
+                    </ng-form>
+                    </div>                
+                </div>
+                
+                <div class = "panel panel-default">                                                   
+                    <div class="panel-body">                          
+                        <div class = "panel-heading">
+                            <h5 class="panel-title">Available Part(s)</h5>                          
+                        </div>                            
+                        
+                        <div>
+                            <button type="button" class="btn btn-danger btn-sm" ng-click = "deletePart()" ng-disabled = "!vehiclePartHasBeenSelected"><i class = "fa fa-trash"></i> Delete selected Part</button>
+                            <button type="button" class="btn btn-info btn-sm" ng-click = "updateParts()"><i class = "fa fa-pencil"></i> Update Parts</button>
+                        </div>
+
+                        <br>
+                        
+                        <div id="grid3" ui-grid="vehiclePartsTableGridOptions" ui-grid-selection ui-grid-edit class="vehiclePartsGrid" ng-if="vehiclePartsTableGridOptions"></div>                                        
+
+                        <table style = "text-align: left;" class="table table-bordered">
+                            <tr>
+                                <th width="10%">#</th>
+                                <th width="27%"> Part Description</th>
+                                <th width="27%"> Rate</th>
+                                <th width="26%"> Type </th>
+                                <th width="10%"> Action</th>
+                            </tr>
+                            <td>                                                              
+                                <input class = "form-control" type = "text" ng-model = "newPart.Sr_No" disabled>                                                                                   
+                            </td>
+                            <td>
+                                <input class = "form-control" type = "text" ng-model = "newPart.Part_Name">                                                                                                                       
+                            </td>
+                            <td>
+                                <input class = "form-control" type = "text" ng-model = "newPart.Rate">                                                                                             
+                            </td>
+                            <td>
+                                <input class = "form-control" type = "text" ng-model = "newPart.Part_Type">                                                                                             
+                            </td>
+                            <td class = "text-center">
+                                <button style = "margin-top: 5px;" ng-click="addPart(newPart);" ng-disabled = "!vehicleHasBeenSelected || partAdditionInProgress" type="button" class="btn btn-success btn-xs timingicon">
+                                    <i class="fa fa-plus-circle fa" aria-hidden="true"></i>
+                                </button>
+                            </td>                
+                                                            
+                            
+                            <!--<tr ng-cloak ng-repeat="part in selectedVehicle['parts'] track by $index">                                          
+                                <td>
+                                    <input class = "form-control" type = "text" ng-model = "part.Sr_No"> 
+                                </td>
+                                <td>
+                                    <input class = "form-control" type = "text" ng-change = "showChange()" ng-model = "part.Part_Name">
+                                </td>
+                                <td>
+                                    <input class = "form-control" type = "text" ng-model = "part.Rate">
+                                </td>
+                                <td>
+                                    <input class = "form-control" type = "text" ng-model = "part.Part_Type">
+                                </td>
+                                <td class = "text-center">
+                                    <button ng-click="removePart($index);" type="button" class="btn btn-danger btn-xs">
+                                        <i class="fa fa-minus-circle fa" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                            </tr>-->
+                        </table>
+                                                        
+                    </div>                          
+                    
+                </div>
+
+            </div>
+          
+            <div class="panel-footer">
+            
+               <div class = "text-center">
+              <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-success" ng-click = "addVehicle()"> <i class = "fa fa-plus"></i> Add Vehicle</button>
+              <button type="button" class="btn btn-success" ng-disabled = "newVehicleForm.$invalid || savingVehicleData" ng-click = "saveVehicle()"> <i class = "fa fa-plus"></i> Create/Update Vehicle</button>
+              <!--<button type="button" class="btn btn-success"> <i class = "fa fa-plus"></i> Add</button>
+              <button type="button" class="btn btn-success"><i class = "fa fa-file"></i> Modify</button>-->
+              
+              <!--<button type="button" ng-click = "updateParts()" class="btn btn-success"><i class = "fa fa-floppy-o"></i> Save</button>-->
+              
+              <button type="button" class="btn btn-success"><i class = "fa fa-ban"></i> Cancel</button>
+              <button type="button" ng-click = "cancel()" class="btn btn-success"><i class = "fa fa-times"></i> Close</button>
+              </div>
+              </div>
+
+            </div>
+
+          </div>
+    
+        </div>
+        
+        <div class = "row text-center">
+    
+           
+            
+        </div>
+        
+        <!--<span> Hello</span>-->
+
+    </div>  
+
+</script>
+
+<script type="text/ng-template" id="branchMaster.html">
+
+
+    <div class="modal-header">
+        <button type="button" class="close"  ng-click="cancel()" ><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title">Branch Master</h3>
+    </div>
+
+    <div class="modal-body">          
+        
+        <div class = "col-md-12 col-sm-12">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Existing Client List</h3>
+                </div>
+                
+                <div id="grid3" ui-grid="insurerBranchTableGridOptions" ui-grid-selection ui-grid-edit class="insurerBranchGrid" ng-if="insurerBranchTableGridOptions"></div>                                
+                
+            </div>
+
+        </div>
+        
+        <div class = "col-md-12 col-sm-12"> 
+
+          <div class="panel panel-default">
+            
+            <div class="panel-heading">
+              <h3 class="panel-title">Branch Details</h3>
+            </div>
+            
+            <div class="panel-body">
+
+                <div class = "row">
+
+                    <div class = "col-md-8">
+
+                        <div class = "panel panel-default">
+                        
+                            <div class="panel-body">
+                                                        
+                                    <div class="col-md-12">
+                                    
+                                        <div class="row">
+                                              
+                                            <div class="col-md-12">                                              
+                                              <label for = "insurer">Insurer:</label>
+                                              <input class = "form-control" name = "insurer" type = "text" ng-model = "selectedInsurer.Insurer_Name">
+                                            </div>
+
+                                        </div>  
+
+                                        <div class="row">
+                                            
+                                            <div class="col-md-12">                                                                                          
+                                                <label for = "fee_based_on">Branch:</label>
+                                                <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedInsurerBranch.Branch_Name">                                                                          
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            
+                                            <div class="col-md-12">                                                                                                                                      
+                                                <label for = "fee_based_on">Address:</label>
+                                                <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedInsurerBranch.Address">            
+                                            </div>
+
+                                        </div>
+                                        
+                                        <div class="row">
+
+                                            <div class = "col-md-6">
+                                                  <label for = "fee_based_on">Phone:</label>
+                                                  <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedInsurerBranch.Office">            
+                                            </div>
+
+                                            <div class = "col-md-6">
+                                                  <label for = "fee_based_on">FAX:</label>
+                                                  <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedInsurerBranch.Fax">            
+                                            </div>
+
+                                        </div>
+                                        
+                                        <div class="row">
+                                            
+                                            <div class="col-md-12">                                                                                                                                      
+                                                <label for = "fee_based_on">E-Mail:</label>
+                                                <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedInsurerBranch.EMail">            
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            
+                                            <div class = "col-md-12">
+                                                <label for = "fee_based_on">Remark:</label>
+                                                <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedInsurerBranch.Remark">            
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                                        
+                            </div>
+                        
+                        </div> 
+
+                    </div>
+
+                    <div class = "col-md-4">
+                    
+                    <div class = "panel panel-default">
+                    
+                        <div class = "panel-body">
+
+                            <div class = "col-md-12">
+                            
+                                <div class = "row">
+                                    <label for = "contact_person">Contact Person:</label>
+                                    <input class = "form-control" name = "contact_person" type = "text" ng-model = "selectedInsurerBranch.contact_person">                                  
+                                </div>  
+
+                                <div class = "row">
+                                    <label for = "mobile">Mobile:</label>
+                                    <input class = "form-control" name = "contact_person" type = "text" ng-model = "selectedInsurerBranch.Mobile">                                  
+                                </div> 
+
+                                <div class = "row">
+                                    <label for = "designation">Designation:</label>
+                                    <input class = "form-control" name = "contact_person" type = "text" ng-model = "selectedInsurerBranch.Designation">                                  
+                                </div> 
+
+                                <div class = "row">
+                                    <label for = "active">Active:</label>
+                                    <input name = "active" type = "checkbox" ng-model = "selectedInsurerBranch.Active">                                  
+                                </div> 
+
+                            </div>  
+
+                        </div>
+
+                    </div>
+                    
+                    </div>
+
+                </div>
+
+            </div>
+          
+            <div class="panel-footer">
+            
+            <div class = "row text-center">
+    
+            <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-success"> <i class = "fa fa-plus"></i> Add</button>
+              <button type="button" class="btn btn-success"><i class = "fa fa-file"></i> Modify</button>
+              <button type="button" class="btn btn-success"><i class = "fa fa-floppy-o"></i> Save</button>
+              <button type="button" class="btn btn-success"><i class = "fa fa-ban"></i> Cancel</button>
+              <button type="button" class="btn btn-success"><i class = "fa fa-times"></i> Close</button>
+            </div>
+            
+        </div>
+
+            </div>
+
+          </div>
+    
+        </div>
+        
+        	<div class = "row text-center">
+    
+           
+            
+        </div>
+        
+        <!--<span> Hello</span>-->
+
+    </div>  
+
+</script>
+
+<script type="text/ng-template" id="policyTypeAssessor.html">
+    <form role = "form" name = "schoolTimingForm">
+        <div class="input-group input-group-sm">        
+            <div class = "row">            
+                <label for = "claim_sr_no">Claim Sr No</label>
+                <input type = "text" size  = "3" class="form-control" ng-change = "pt_assess()" name="claim_sr_no" ng-model = "finalReportTemp.pTypeSrNo">
+            </div>
+            <div class = "row">            
+                <label for = "is_commercial">Is Commercial/Taxi</label>
+                <input type = "checkbox" ng-change = "pt_assess()" name="is_commercial" ng-model = "finalReportTemp.pTypeCV">
+            </div>
+            <div class = "row">            
+                <label for = "owner_transferred">Owner Transferred</label>
+                <input type = "checkbox" ng-change = "pt_assess()" name="owner_transferred" ng-model = "finalReportTemp.pTypeOT">
+            </div>    
+        </div>
+        <div class="text-center">
+            <button type = "button" ng-click= "closePType();" class="btn btn-sm btn-warning">Close</button>
+        </div>
+    </form>        
+</script>
+
+<script type="text/ng-template" id="insuranceReportListMaster.html">
+    <div class="modal-header">
+        <button type="button" class="close"  ng-click="cancel()" ><span aria-hidden="true">&times;</span></button>
+        <!--<h5 class="modal-title">Searching...</h5>-->
+    </div>
+
+    <div class="modal-body">          
+        
+        <div class = "col-md-12 col-sm-12">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5 ng-show = "finalReportsTableGridOptions.data.length == 0" class="panel-title">Searching...</h5>
+                    <h5 ng-show = "finalReportsTableGridOptions.data.length > 0" class="panel-title">{{finalReportsTableGridOptions.data.length}} Records Found</h5>
+                </div>
+
+                <div id="grid3" ui-grid="finalReportsTableGridOptions" ui-grid-selection ui-grid-edit class="mainReportsTableGrid" ng-if="finalReportsTableGridOptions"></div>                                 
+                      
+            </div>
+            
+        </div>
+        
+        
+        
+        
+
+        <div class = "row text-center">
+    
+           
+            
+        </div>
+
+    </div>
+</script>

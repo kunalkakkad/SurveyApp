@@ -1,0 +1,274 @@
+<div class="container">
+
+    <br>
+    <br>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="widget-box">
+                        <div class="widget-header widget-header-flat widget-header-small">
+                            <h5 class="widget-title">
+                                <i class="ace-icon fa fa-signal"></i>
+                                Survey Report stats
+                            </h5>
+                            <div class="widget-toolbar no-border">
+                                <div class="inline dropdown-hover">
+                                    <button class="btn btn-minier btn-primary">
+                                        This Month
+                                        <i class="ace-icon fa fa-angle-down icon-on-right bigger-110"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-right dropdown-125 dropdown-lighter dropdown-close dropdown-caret">
+                                        <li class="active">
+                                            <a href="#" class="blue">
+                                                <i class="ace-icon fa fa-caret-right bigger-110">&nbsp;</i>
+                                                This Month
+                                            </a>
+                                        </li>
+
+
+                                        <li>
+                                            <a href="#">
+                                                <i class="ace-icon fa fa-caret-right bigger-110 invisible">&nbsp;</i>
+                                                Last Month
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div class="clearfix">
+                                    <div class="grid3 text-center">
+                                        <div class="grey ">
+                                            Total pending
+                                        </div>
+                                        <h4 class="bigger">1,255</h4>
+                                    </div>
+                                    <div class="grid3 text-center">
+                                        <div class="grey ">
+                                            Total count &nbsp;
+                                        </div>
+                                        <h4 class="bigger">941</h4>
+                                    </div>
+                                    <div class="grid3 text-center">
+                                        <div class="grey ">
+                                            Total Average
+                                        </div>
+                                        <h4 class="bigger">1,050</h4>
+                                    </div>
+                                </div>
+                            </div><!-- /.widget-main -->
+                        </div><!-- /.widget-body -->
+                    </div><!-- /.widget-box -->
+                </div><!-- /.col -->
+                <div class="col-md-6">
+                    <div class="widget-main">
+                        <div id="piechart-placeholder"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hr hr32 hr-lined"></div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="widget-box transparent">
+                    <div class="widget-header widget-header-flat">
+                        <h4 class="widget-title lighter">
+                            <i class="ace-icon fa fa-star orange"></i>
+                            Recent Survey
+                        </h4>
+                    </div>
+                    <!--<button id="button_toggle_visible" class="btn" ng-click="toggleVisible()">Toggle Visible</button>	-->
+                    <div class="widget-body">
+                        <div ng-if="user.role == 'user'">
+                            <!--<div class="widget-main search-table-outer wrapper">
+                                    <table class="table table-bordered table-striped search-table inner">
+                                            <thead class="thin-border-bottom">
+                                                    <tr>
+                                                            <th>Ref #</th>
+                                                            <th>Policy #</th>
+                                                            <th class="hidden-480">Vehicle</th>
+                                                            <th class="hidden-480">Status</th>
+                                                    </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                    <tr>
+                                                            <td> VM/9CJ3231/06-17/F/00001 </td>
+                                                            <td>  MP095454878454	</td>
+                                                            <td class="hidden-480">Ashok Leyland</td>
+                                                            <td>
+                                                                    <span class="label label-warning arrowed arrowed-right">Waiting</span>
+                                                            </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                            <td> VM/9CJ3231/06-17/F/00002 </td>
+                                                            <td>  MP095454878454	</td>
+                                                            <td class="hidden-480">Hero</td>
+                                                            <td>
+                                                                    <span class="label label-danger arrowed">pending</span>
+                                                            </td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td> VM/9CJ3231/06-17/F/00003 </td>
+                                                            <td>  MP095554545455	</td>
+                                                            <td class="hidden-480">Bajaj</td>
+                                                            <td>
+                                                                    <span class="label label-danger arrowed">pending</span>
+                                                            </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                            <td> VM/9CJ3231/06-17/F/00003 </td>
+                                                            <td>  MP095121545545	</td>
+                                                            <td class="hidden-480">Apache</td>
+                                                            <td>
+                                                                <span class="label label-success arrowed-in arrowed-in-right">approved</span>
+                                                            </td>
+                                                    </tr>
+                                            </tbody>
+                                    </table>
+                            </div>-->
+                            <div style="margin-top: 10px;" class="container">
+                                <div id="grid1" ui-grid="gridOptions_user" class="cGrid" ng-if="gridOptions_user"></div>
+                            </div>
+                        </div>
+
+                        <div ng-if="user.role == 'insurer'">
+                            <div style="margin-top: 10px;" class="container">
+                                <div id="grid1" ui-grid="gridOptions_insurer" class="cGrid" ng-if="gridOptions_insurer"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.col -->
+            <div class="container">
+                <div class="col-sm-12">
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h4 class="widget-title lighter smaller">
+                                <i class="ace-icon fa fa-bell blue"></i>
+                                Notification
+                            </h4>
+                        </div>
+                        <div class="widget-body">
+                            <div class="widget-main no-padding">
+                                <div class="dialogs">
+                                    <div class="itemdiv dialogdiv">
+                                        <div class="user">
+                                            <img alt="Alexa's Avatar" src="/assets/images/avatars/avatar4.png" />
+                                        </div>
+                                        <div class="body">
+                                            <div class="time">
+                                                <i class="ace-icon fa fa-clock-o"></i>
+                                                <span class="green">4 sec</span>
+                                            </div>
+                                            <div class="name">
+                                                <a href="#">Rajesh</a>
+                                            </div>
+                                            <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis.</div>
+                                            <div class="tools">
+                                                <a href="#" class="btn btn-minier btn-info">
+                                                    <i class="icon-only ace-icon fa fa-share"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="itemdiv dialogdiv">
+                                        <div class="user">
+                                            <img alt="Alexa's Avatar" src="/assets/images/avatars/avatar4.png" />
+                                        </div>
+                                        <div class="body">
+                                            <div class="time">
+                                                <i class="ace-icon fa fa-clock-o"></i>
+                                                <span class="blue">38 sec</span>
+                                            </div>
+                                            <div class="name">
+                                                <a href="#">Mohan</a>
+                                            </div>
+                                            <div class="text">Raw denim you probably haven&#39;t heard of them jean shorts Austin.</div>
+                                            <div class="tools">
+                                                <a href="#" class="btn btn-minier btn-info">
+                                                    <i class="icon-only ace-icon fa fa-share"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="itemdiv dialogdiv">
+                                        <div class="user">
+                                            <img alt="Alexa's Avatar" src="/assets/images/avatars/avatar4.png" />
+                                        </div>
+                                        <div class="body">
+                                            <div class="time">
+                                                <i class="ace-icon fa fa-clock-o"></i>
+                                                <span class="orange">2 min</span>
+                                            </div>
+                                            <div class="name">
+                                                <a href="#">Faheem</a>
+                                                <span class="label label-info arrowed arrowed-in-right">admin</span>
+                                            </div>
+                                            <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis.</div>
+                                            <div class="tools">
+                                                <a href="#" class="btn btn-minier btn-info">
+                                                    <i class="icon-only ace-icon fa fa-share"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="itemdiv dialogdiv">
+                                        <div class="user">
+                                            <img alt="Alexa's Avatar" src="/assets/images/avatars/avatar4.png" />
+                                        </div>
+
+                                        <div class="body">
+                                            <div class="time">
+                                                <i class="ace-icon fa fa-clock-o"></i>
+                                                <span class="grey">3 min</span>
+                                            </div>
+                                            <div class="name">
+                                                <a href="#">Vikash</a>
+                                            </div>
+                                            <div class="text">Raw denim you probably haven&#39;t heard of them jean shorts Austin.</div>
+                                            <div class="tools">
+                                                <a href="#" class="btn btn-minier btn-info">
+                                                    <i class="icon-only ace-icon fa fa-share"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="itemdiv dialogdiv">
+                                        <div class="user">
+                                            <img alt="Alexa's Avatar" src="/assets/images/avatars/avatar4.png" />
+                                        </div>
+
+                                        <div class="body">
+                                            <div class="time">
+                                                <i class="ace-icon fa fa-clock-o"></i>
+                                                <span class="green">4 min</span>
+                                            </div>
+                                            <div class="name">
+                                                <a href="#">ICICI Insu.</a>
+                                            </div>
+                                            <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+                                            <div class="tools">
+                                                <a href="#" class="btn btn-minier btn-info">
+                                                    <i class="icon-only ace-icon fa fa-share"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- /.widget-main -->
+                        </div><!-- /.widget-body -->
+                    </div><!-- /.widget-box -->
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div>
+    </div>
+</div>
+  </div>
+</div>
+</div>

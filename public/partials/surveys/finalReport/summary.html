@@ -1,0 +1,342 @@
+
+<div class = "col-md-1">
+    <div class = "row text-center" style = "position: fixed; margin-left: -35px; margin-top: 43px;">    
+        <div class="btn-group-vertical" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary"> <i class = "fa fa-plus"></i> Add</button>
+            <button type="button" class="btn btn-primary"><i class = "fa fa-file"></i> Modify</button>
+            <button type="button" class="btn btn-primary"><i class = "fa fa-floppy-o"></i> Save</button>
+            <button type="button" class="btn btn-primary"><i class = "fa fa-floppy-o"></i> Save As</button>
+            <button type="button" class="btn btn-primary"><i class = "fa fa-ban"></i> Cancel</button>
+            <button type="button" class="btn btn-primary"><i class = "fa fa-print"></i> Print</button>
+            <button type="button" class="btn btn-primary"><i class = "fa fa-times"></i> Close</button>
+        </div>  
+    </div>
+</div>
+
+<div class="tab-pane fade in active" id="summary">
+    <ng-form name = "summaryForm">
+        <div class="container col-md-11">
+                    
+            <br>
+            <br>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Original Estimate
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="total_labour">Total Labour</label> 
+                                        <input class="form-control" ng-pattern = "/^[0-9]\d*(\.\d+)?$/" name="total_labour" ng-model="finalReport.Main.Assessed_Labour" type="text">
+                                        <div class = "text-danger ng-cloak" ng-show = "!summaryForm.total_labour.$pristine" ng-messages="summaryForm.total_labour.$error">                            
+                                            <p ng-message="pattern">Please enter only digits[0-9].</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="parts_total_cost">Total cost of Parts</label> 
+                                        <input class="form-control" ng-pattern = "/^[0-9]\d*(\.\d+)?$/" name="parts_total_cost" ng-model = "finalReport.Main.Assessed_Parts" type="text">
+                                        <div class = "text-danger ng-cloak" ng-show = "!summaryForm.parts_total_cost.$pristine" ng-messages="summaryForm.parts_total_cost.$error">                            
+                                            <p ng-message="pattern">Please enter only digits[0-9].</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="total_estimate">Total Estimate</label> 
+                                        <input class="form-control" name="total_estimate" ng-pattern = "/^[0-9]\d*(\.\d+)?$/" ng-model = "finalReport.Main.Total_estimate" type="text">
+                                        <div class = "text-danger ng-cloak" ng-show = "!summaryForm.total_estimate.$pristine" ng-messages="summaryForm.total_estimate.$error">                            
+                                            <p ng-message="pattern">Please enter only digits[0-9].</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Assessed Value
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="total_labour_A">Total Labour [A]</label> 
+                                        <input class="form-control" ng-pattern = "/^[0-9]\d*(\.\d+)?$/" name="total_labour_A" ng-model = "finalReport.Main.Assessed_Labour" type="text">
+                                        <div class = "text-danger ng-cloak" ng-show = "!summaryForm.total_labour_A.$pristine" ng-messages="summaryForm.total_labour_A.$error">                            
+                                            <p ng-message="pattern">Please enter only digits[0-9].</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="excess_B">Excess [B]</label> 
+                                        <input class="form-control" ng-pattern = "/^[0-9]\d*(\.\d+)?$/" name="excess_B" ng-model = "finalReport.main.Excess" type="text">
+                                        <div class = "text-danger ng-cloak" ng-show = "!summaryForm.excess_B.$pristine" ng-messages="summaryForm.excess_B.$error">                            
+                                            <p ng-message="pattern">Please enter only digits[0-9].</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="imposed_C">Imposed [C]</label> 
+                                        <input class="form-control" ng-pattern = "/^[0-9]\d*(\.\d+)?$/" name="imposed_C" ng-model = "finalReport.Main.Excess_I" type="text">
+                                        <div class = "text-danger ng-cloak" ng-show = "!summaryForm.imposed_C.$pristine" ng-messages="summaryForm.imposed_C.$error">                            
+                                            <p ng-message="pattern">Please enter only digits[0-9].</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="total_D">Total [D] = (A - B - C)</label> 
+                                        <input class="form-control" ng-pattern = "/^[0-9]\d*(\.\d+)?$/" name="total_D" ng-model = "finalReport.Main.Total" type="text">
+                                        <div class = "text-danger ng-cloak" ng-show = "!summaryForm.total_D.$pristine" ng-messages="summaryForm.total_D.$error">                            
+                                            <p ng-message="pattern">Please enter only digits[0-9].</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1 col-sm-1">
+                                    <div class="form-group">
+                                    <label for="total_loss">Total Loss</label>
+                                    <input name="total_loss" ng-model = "finalReport.Main.Total_loss" type="checkbox">
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="text-right" style="margin-top:25px; margin-left:55%;">
+                                    <span class="text-danger">Assessment percent(IDV):</span> <span ng-bind = "summary.idv"></span><br>
+                                    <span class="text-danger">Assessment percent(Estimate):</span> <span ng-bind="summary.assess_est"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="permit_type">Total Cost of Parts [E]</label> 
+                                        <input class="form-control" name="total_part_cost_E" ng-model = "finalReport.Main.Assessed_Parts" type="text">
+                                        <div class = "text-danger ng-cloak" ng-show = "!summaryForm.total_part_cost_E.$pristine" ng-messages="summaryForm.total_part_cost_E.$error">                            
+                                            <p ng-message="pattern">Please enter only digits[0-9].</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 col-md-offset-9">
+                                    <div class="form-group">
+                                        <label for="permit_type">Grand Total [F] = (D + E)</label> 
+                                        <input class="form-control" name="grand_total_F" ng-model = "finalReport.Main.Assessed_Total" type="text">
+                                        <div class = "text-danger ng-cloak" ng-show = "!summaryForm.grand_total_F.$pristine" ng-messages="summaryForm.Assesed_Total.$error">                            
+                                            <p ng-message="pattern">Please enter only digits[0-9].</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Salvage and Deprecation Details
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="metal_percentage">Metal %</label> 
+                                        <input class="form-control" name="metal_percentage" ng-model = "finalReport.Main.Salvage_Per" type="text">
+                                        <div class = "text-danger ng-cloak" ng-show = "!summaryForm.metal_percentage.$pristine" ng-messages="summaryForm.metal_percentage.$error">                            
+                                            <p ng-message="pattern">Please enter only digits[0-9].</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="salvage_expected">Expected Salvage</label> 
+                                        <input class="form-control" name="salvage_expected" ng-model = "finalReport.Main.Salvage" type="text">
+                                        <div class = "text-danger ng-cloak" ng-show = "!summaryForm.salvage_expected.$pristine" ng-messages="summaryForm.salvage_expected.$error">                            
+                                            <p ng-message="pattern">Please enter only digits[0-9].</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="salvage_remarks">Remarks on Salvage</label> 
+                                        <input class="form-control" name="salvage_remarks" ng-model = "finalReport.Main.Salvage_Remark" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="part_deprecation">Deprecation on Parts:</label>
+                                        <input class="form-control" ng-pattern = "/^[0-9]\d*(\.\d+)?$/"  name="part_deprecation" ng-model = "finalReport.Main.Depriciated_Parts" type="text">
+                                        <div class = "text-danger ng-cloak" ng-show = "!summaryForm.part_deprecation.$pristine" ng-messages="summaryForm.part_deprecation.$error">                            
+                                            <p ng-message="pattern">Please enter only digits[0-9].</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="net_assess">Net Assessed Amount:</label>                                    
+                                        <input class="form-control" ng-pattern = "/^[0-9]\d*(\.\d+)?$/"  name="net_assess" ng-model = "finalReport.Main.Assessed_Net" type="text">
+                                        <div class = "text-danger ng-cloak" ng-show = "!summaryForm.net_assess.$pristine" ng-messages="summaryForm.net_assess.$error">                            
+                                            <p ng-message="pattern">Please enter only digits[0-9].</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="imt23_liability">IMT-23 Liability:</label>
+                                        <input class="form-control" ng-pattern = "/^[0-9]\d*(\.\d+)?$/"  name="imt23_liability" ng-model = "finalReport.Main.Net_liability" type="text">
+                                        <div class = "text-danger ng-cloak" ng-show = "!summaryForm.imt23_liability.$pristine" ng-messages="summaryForm.imt23_liability.$error">                            
+                                            <p ng-message="pattern">Please enter only digits[0-9].</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="imt23_assessed_amount">Assessed Amount(IMT 23):</label>                                    
+                                        <input class="form-control" ng-pattern = "/^[0-9]\d*(\.\d+)?$/"  name="imt23_assessed_amount" ng-model = "finalReport.Main.imt23_assessed_amount" type="text">
+                                        <div class = "text-danger ng-cloak" ng-show = "!summaryForm.imt23_assessed_amount.$pristine" ng-messages="summaryForm.imt23_assessed_amount.$error">                            
+                                            <p ng-message="pattern">Please enter only digits[0-9].</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div><!--first 6 column ends-->
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Notes
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">                            
+                                <textarea class="form-control" name="summary_notes" rows = "10" ui-tinymce = "tinymceOptions" ng-model = "finalReport.Main.Survey_Note" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Enclosures, Remarks and other Details
+                        </div>
+                        <div class="panel-body">
+                            <strong>Enclosures</strong>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="cd_enclosure">CDs</label> 
+                                        <input name="cd_enclosure" ng-model = "finalReport.Main.CD" type="checkbox">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <label for="photo_enclosure">Photos</label>
+                                            <input type="checkbox" name = "photo_enclosure" ng-model = "finalReport.Main.Photo_Present" aria-label="Checkbox for photos">
+                                        </span>
+                                        <input type="text" name="photo_quantity" ng-model = "finalReport.Main.Photo_Qty" class="form-control" aria-label="Text input for photo quantity">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="cashless_enclosure">Cashless</label> 
+                                        <input name="cashless_enclosure" ng-model = "finalReport.Main.Cash_Less" type="checkbox">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="submitted_enclosure">Submitted</label> 
+                                        <input name="submitted_enclosure" ng-model = "finalReport.Main.Submitted" type="checkbox">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <textarea class="form-control" name="enclosures" ng-model = "finalReport.Main.Encloser" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="note_self">Note to Self</label> 
+                                        <textarea class="form-control" name="note_self" ng-model = "finalReport.Main.Pendings" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="reason_delay">Reason thereof delay</label> 
+                                        <input class="form-control" name="delay_reason" ng-model = "finalReport.Main.Delay_Reason" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="further_observations">Any further observations</label> 
+                                        <input class="form-control" name="further_observations" ng-model = "finalReport.Main.Observation" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="party_agree">Party Agreed?</label> 
+                                        <select name="party_agree" ng-model = "finalReport.Main.Party_Agreed" class="form-control">
+                                            <option ng-selected = "party_agree == ch.choice" ng-repeat="ch in binary_choices" value = "{{ch.choice}}">{{ch.choice}}</option>
+                                        </select>
+                                    </div>
+                                </div>                            
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="destroyed_salvage">Salvage Destroyed</label> 
+                                        <select name="destroyed_salvage" ng-model = "finalReport.Main.Salvage_Destroyed" class="form-control">
+                                            <option ng-selected = "destroyed_salvage == ch.choice" ng-repeat="ch in binary_choices" value = "{{ch.choice}}">{{ch.choice}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class = "row">
+                                <div class="form-group col-md-3 col-md-3 dtpkr">
+                                    <label for="date">Repairing photo date</label>             
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" model-view-value="true" uib-datepicker-popup="dd/MM/yyyy"  ui-mask = "99/99/2099" ng-model = "finalReport.Main.Repairing_Photo_Date" is-open="repair_photo_date_date.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" />
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-success btn-sm" ng-click="repair_photo_date_dpick_open()"><i class="fa fa-calendar"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-3 col-md-3 dtpkr">
+                                    <label for="date">Reinspection date</label>             
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" model-view-value="true" uib-datepicker-popup="dd/MM/yyyy"  ui-mask = "99/99/2099" ng-model = "finalReport.Main.Reinspection_Date" is-open="reinspection_date_date.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" />
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-success btn-sm" ng-click="reinspection_date_dpick_open()"><i class="fa fa-calendar"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="bill_amount">Bill Amount</label> 
+                                        <input class="form-control" ng-pattern = "/^[0-9]\d*(\.\d+)?$/" name="bill_amount" ng-model = "finalReport.Main.Bill_Amount" type="text">
+                                        <div class = "text-danger ng-cloak" ng-show = "!summaryForm.bill_amount.$pristine" ng-messages="summaryForm.bill_amount.$error">                            
+                                            <p ng-message="pattern">Please enter only digits[0-9].</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--second 6 column ends-->
+            </div>
+        </div>    
+    </ng-form>
+</div>

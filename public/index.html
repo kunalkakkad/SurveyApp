@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html ng-app="MyApp">
+<head>
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<title>Surveyor</title>
+
+		<meta name="description" content="User login page" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+		<!-- bootstrap & fontawesome -->
+		<link rel="stylesheet" href="fonts/ui-grid.ttf" />
+		<link rel="stylesheet" href="fonts/ui-grid.svg" />
+		<link rel="stylesheet" href="fonts/ui-grid.woff" />
+		
+		<link rel="stylesheet" href="stylesheets/bootstrap.min.css" />
+		<link rel="stylesheet" href="stylesheets/font-awesome/4.5.0/css/font-awesome.min.css" />
+
+		<!-- text fonts -->
+		<link rel="stylesheet" href="stylesheets/fonts.googleapis.com.css" />
+
+		<!-- ace styles -->
+		<link rel="stylesheet" href="stylesheets/ace.min.css" />
+		<link rel="stylesheet" href="stylesheets/ui-grid.min.css" />		
+		<link rel="stylesheet" href="stylesheets/custStyles.css" />
+		<link rel="stylesheet" href="stylesheets/angular-toastr.min.css" />
+		<link rel="stylesheet" href="stylesheets/sweetalert.css" />
+		<link rel="stylesheet" href="stylesheets/inputDropdownStyles.css" />
+		<link rel="stylesheet" href="stylesheets/select.css" />
+		<link rel="stylesheet" href="stylesheets/ng-tags-input.min.css" />
+		<link rel="stylesheet" href="stylesheets/jquery.fancybox.min.css" />
+		<link rel="stylesheet" href="stylesheets/angular-confirm.min.css" />
+		<!--<link rel="stylesheet" href="stylesheets/ng-tags-input.bootstrap.min.css" />-->
+
+		<!--[if lte IE 9]>
+			<link rel="stylesheet" href="assets/css/ace-part2.min.css" />
+		<![endif]-->
+		<!--<link rel="stylesheet" href="stylesheets/ace-rtl.min.css" />-->
+
+		<!--[if lte IE 9]>
+		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
+		<![endif]-->
+
+		<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+
+		<!--[if lte IE 8]>
+		<script src="assets/js/html5shiv.min.js"></script>
+		<script src="assets/js/respond.min.js"></script>
+		<![endif]-->
+  <link href="/stylesheets/angular-toastr.min.css" rel="stylesheet">
+</head>
+<body class="no-skin">
+
+
+<div ng-controller="NavbarCtrl" class="navbar navbar-default navbar-collapse h-navbar ace-save-state" id="navbar">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="/"><i class="ion-ios7-pulse-strong"></i> Surveyor</a>
+	</div>
+	<ul class="nav navbar-nav">
+		<li ng-if="!isAuthenticated()"><a href="/#/">Home</a></li>
+		<li ng-if="isAuthenticated()" ng-class="{active:$state.includes('dashboard')}" ><a ui-sref="dashboard" ng-cloak>Dashboard</a></li>
+		<li ng-if="isAuthenticated()" ng-class="{active:$state.includes('surveys')}"><a ui-sref="surveys" ng-cloak>Surveyor</a></li>
+		<li ng-if="isAuthenticated()" ng-class="{active:$state.includes('profile')}"><a ui-sref="profile" ng-cloak>Profile</a></li>
+	</ul>
+	<ul ng-if="!isAuthenticated()" class="nav navbar-nav pull-right">
+		<li><a ui-sref="login">Login</a></li>
+		<li><a ui-sref="signup">Sign up</a></li>
+	</ul>
+	<ul ng-if="isAuthenticated()" class="nav navbar-nav pull-right">
+		<li><a ui-sref="logout">Logout</a></li>
+	</ul>
+</div>
+
+<div ui-view></div>
+
+<script src="/vendor/js/jquery-3.2.1.min.js"></script>								 
+<script src="/vendor/js/bootstrap.min.js"></script>
+<script src="/vendor/js/ace-elements.min.js"></script> 
+<script src="/vendor/js/ace.min.js"></script> 
+<script src="/vendor/js/ace-extra.min.js"></script>
+<script src="/vendor/js/jquery.easypiechart.min.js"></script>
+
+<script src="/vendor/js/jquery.flot.min.js"></script>
+<script src="/vendor/js/jquery.flot.pie.min.js"></script>
+<script src="/vendor/js/jquery.flot.resize.min.js"></script>
+
+
+
+<!-- Third-party Libraries -->
+<script src="/vendor/angular.js"></script>
+<script src="/vendor/angular-animate.js"></script>
+<script src="/vendor/angular-messages.min.js"></script>
+<script src="/vendor/angular-resource.js"></script>
+<script src="/vendor/angular-sanitize.js"></script>
+<script src="/vendor/angular-ui-router.min.js"></script>
+<script src="/vendor/statehelper.min.js"></script>
+<script src="/vendor/ui-bootstrap-tpls-2.5.0.min.js"></script>
+<script src="/vendor/ui-router-visualizer@4.0.0.js"></script>	
+<script src="/vendor/angular-toastr.tpls.min.js"></script>	
+<!--<script src="/vendor/angular-toastr.tpls.js"></script>-->
+<script src="/vendor/satellizer.js"></script>
+<script src="/vendor/moment-with-locales.js"></script>
+<script src="/vendor/js/tinymce/tinymce.min.js"></script>								 
+<script src="/vendor/js/tinymce.js"></script>								 
+<script src="/vendor/ui-grid.min.js"></script>						
+<script src="/vendor/smart-table.min.js"></script>						
+<script src="/vendor/mask.min.js"></script>						
+<script src="/vendor/sweetalert.min.js"></script>						
+<script src="/vendor/inputDropdown.js"></script>						
+<script src="/vendor/select.js"></script>						
+<script src="/vendor/ng-tags-input.min.js"></script>						
+<script src="/vendor/ct-ui-router-extras.min.js"></script>	
+<script src="/vendor/angular-fade-image-loading.min.js"></script>								 
+<script src="/vendor/jquery.fancybox.min.js"></script>								 
+<script src="/vendor/js/ng-file-upload.min.js"></script>								 
+<script src="/vendor/js/ng-file-upload-shim.min.js"></script>								 
+<script src="/vendor/angular-confirm.min.js"></script>								 
+<script src="/vendor/angular-modal-service.min.js"></script>								 
+
+<!-- Application Code -->
+<script src="/app.js"></script>
+<script src="/directives/passwordStrength.js"></script>
+<script src="/directives/passwordMatch.js"></script>
+<script src="/directives/fileUpload.js"></script>
+
+<script src="/controllers/home.js"></script>
+<script src="/controllers/login.js"></script>
+<script src="/controllers/signup.js"></script>
+<script src="/controllers/logout.js"></script>
+<script src="/controllers/profile.js"></script>
+<script src="/controllers/navbar.js"></script>
+<script src="/controllers/surveys.js"></script>
+<script src="/controllers/dashboard.js"></script>
+
+<script src="/controllers/spotReport/spotReport.js"></script>
+<script src="/controllers/spotReport/spotReport.Policy.js"></script>
+<script src="/controllers/spotReport/spotReport.Survey.js"></script>
+<script src="/controllers/spotReport/spotReport.Damages.js"></script>
+<script src="/controllers/spotReport/spotReport.Notes.js"></script>
+
+<script src="/controllers/interimReport/interimReport.js"></script>
+<script src="/controllers/interimReport/interimReport.Policy.js"></script>
+<script src="/controllers/interimReport/interimReport.Survey.js"></script>
+<script src="/controllers/interimReport/interimReport.newParts.js"></script>
+<script src="/controllers/interimReport/interimReport.Summary.js"></script>
+
+<script src="/controllers/finalReport/finalReport.js"></script>
+<script src="/controllers/finalReport/finalReport.Policy.js"></script>
+<script src="/controllers/finalReport/finalReport.Survey.js"></script>
+<script src="/controllers/finalReport/finalReport.newParts.js"></script>
+<script src="/controllers/finalReport/finalReport.Summary.js"></script>
+
+<script src="/controllers/statusReport/statusReport.js"></script>
+
+<script src="/controllers/addendum/addendum.Policy.js"></script>
+<script src="/controllers/addendum/addendum.newParts.js"></script>
+<script src="/controllers/addendum/addendum.Labour.js"></script>
+
+<script src="/controllers/reinspection/reinspection.Policy.js"></script>
+<script src="/controllers/reinspection/reinspection.partsDetails.js"></script>
+
+<script src="/controllers/valuation/valuation.Policy.js"></script>
+<script src="/controllers/valuation/valuation.otherDetails.js"></script>
+
+<script src="/controllers/billcheck/billcheck.Policy.js"></script>
+<script src="/controllers/billcheck/billcheck.newParts.js"></script>
+<script src="/controllers/billcheck/billcheck.Labour.js"></script>
+
+<script src="/controllers/bills/bills.js"></script>
+
+<script src="/controllers/receipt/receipt.js"></script>
+
+<script src="/controllers/nonmotor/nonMotor.Policy.js"></script>
+
+<script src="/controllers/album.js"></script>
+
+<script src="/controllers/letters/settlementLetter.js"></script>
+<script src="/controllers/letters/commonLetter.js"></script>
+
+<script src="/controllers/masters/bankMaster.js"></script>
+<script src="/controllers/masters/branchMaster.js"></script>
+<script src="/controllers/masters/garageMaster.js"></script>
+<script src="/controllers/masters/insurerMaster.js"></script>
+<script src="/controllers/masters/vehicleMaster.js"></script>
+
+<script src="/controllers/masters/addendumReportInsuranceReportsMaster.js"></script>
+<script src="/controllers/masters/finalReportInsuranceReportsMaster.js"></script>
+<script src="/controllers/masters/interimReportInsuranceReportsMaster.js"></script>
+<script src="/controllers/masters/spotReportInsuranceReportsMaster.js"></script>
+
+<script src="/controllers/masters/billCheckInsuranceReportsMaster.js"></script>
+<script src="/controllers/masters/statusReportInsuranceReportsMaster.js"></script>
+
+<!--<script src="/factories/dataStore.js"></script> DELETED-->
+<script src="/factories/bankStore.js"></script>
+<script src="/factories/branchStore.js"></script>
+<script src="/factories/garageStore.js"></script>
+<script src="/factories/insurerStore.js"></script>
+<script src="/factories/vehicleStore.js"></script>
+
+<script src="/factories/imageStore.js"></script>
+
+<script src="/factories/letterStore.js"></script>
+<script src="/factories/spotReportStore.js"></script>
+<script src="/factories/addendumReportStore.js"></script>
+<script src="/factories/finalReportStore.js"></script>
+<script src="/factories/statusReportStore.js"></script>
+<script src="/factories/surveyReportStore.js"></script>
+<script src="/factories/surveyCabinStore.js"></script>
+<script src="/factories/surveyNewPartsStore.js"></script>
+<script src="/factories/surveyBillCheckStore.js"></script>
+<script src="/factories/surveyCheckListStore.js"></script>
+<script src="/factories/surveyVehicleDetailsStore.js"></script>
+
+<script src="/factories/masterDataLoader.js"></script>
+
+<script src="/service/account.js"></script>
+
+</body>
+</html>

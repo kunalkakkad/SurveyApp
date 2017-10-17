@@ -1,0 +1,296 @@
+
+<div class = "col-md-1">
+    <div class = "row text-center" style = "position: fixed; margin-left: -35px; margin-top: 43px;">    
+        <div class="btn-group-vertical" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary"> <i class = "fa fa-plus"></i> Add</button>
+            <button type="button" class="btn btn-primary"><i class = "fa fa-file"></i> Modify</button>
+            <button type="button" class="btn btn-primary"><i class = "fa fa-floppy-o"></i> Save</button>
+            <button type="button" class="btn btn-primary"><i class = "fa fa-floppy-o"></i> Save As</button>
+            <button type="button" class="btn btn-primary"><i class = "fa fa-ban"></i> Cancel</button>
+            <button type="button" class="btn btn-primary"><i class = "fa fa-print"></i> Print</button>
+            <button type="button" class="btn btn-primary"><i class = "fa fa-times"></i> Close</button>
+        </div>  
+    </div>
+</div>
+
+<div class="tab-pane fade in active" id="survey">
+  <ng-form name ="surveyForm">
+  <div class="container col-md-11">              
+
+    <br>
+    <br>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Accident details
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+
+                        <div class="form-group col-md-3 col-md-3 dtpkr">
+                            <label for="date">Date of Accident</label>             
+                            <div class="input-group">
+                                <input type="text" class="form-control" model-view-value="true" uib-datepicker-popup="dd/MM/yyyy"  ui-mask = "99/99/2099" ng-model="finalReport.Main.Accident_Date" is-open="accident_date_date.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-success btn-sm" ng-click="accident_date_dpick_open()"><i class="fa fa-calendar"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="accident_time">Time of Accident</label> 
+                                <input class="form-control" name="accident_time" ng-model="finalReport.Main.Accident_Time_Remark" type="text">
+                            </div>
+                        </div>
+                
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="accident_place">Place of Accident</label> 
+                                <input class="form-control" name="accident_place" ng-model="finalReport.Main.Accident_Place" type="text">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="accident_pin">Pin</label> 
+                                <input class="form-control" ng-pattern = "/^[0-9]*$/" name="accident_pin" ng-model="finalReport.Main.Pincode" type="text">
+                                <div class = "text-danger ng-cloak" ng-show = "!surveyForm.accident_pin.$pristine" ng-messages="surveyForm.accident_pin.$error">                            
+                                    <p ng-message="pattern">Please enter only digits[0-9].</p>
+                                </div>
+                            </div>
+                        </div>            
+                    </div>
+            
+            <div class="row">
+
+              <div class="col-md-3">
+                <div class="form-group">                                    
+                  <label for="survey_place">Place of survey</label> 
+                  <div class="input-group">                        
+                  <input class="form-control" name="survey_place" ng-model="finalReport.Main.Survey_Garage_ID" type="text">
+                          <span class="input-group-btn">
+                              <button type = "button" ng-click = "garageMaster()" class = "btn btn-success btn-sm"> <i class = "fa fa-plus"></i></button>                            
+                          </span>
+                  </div>
+                </div>
+              </div>
+            
+            </div>
+            
+            <h5>Survey Details</h5>
+            
+            <hr>
+            
+            <div class="row">
+                
+                <div class="form-group col-md-4 col-md-4 dtpkr">
+                    <label for="date">Allotment Date</label>             
+                    <div class="input-group">
+                        <input type="text" class="form-control" model-view-value="true" uib-datepicker-popup="dd/MM/yyyy"  ui-mask = "99/99/2099" ng-model="finalReport.Main.Allowtment_Date" is-open="survey_allotment_date_date.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-success btn-sm" ng-click="survey_allotment_date_dpick_open()"><i class="fa fa-calendar"></i></button>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="form-group col-md-4 col-md-4 dtpkr">
+                    <label for="date">Inspection</label>             
+                    <div class="input-group">
+                        <input type="text" class="form-control" model-view-value="true" uib-datepicker-popup="dd/MM/yyyy"  ui-mask = "99/99/2099" ng-model="finalReport.Main.Inspection_Date" is-open="survey_inspection_date.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-success btn-sm" ng-click="survey_inspection_dpick_open()"><i class="fa fa-calendar"></i></button>
+                        </span>
+                    </div>
+                </div>
+ 
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="spot_survey_recvd">Spot Survey Received</label> 
+                        <input class="form-control" name="spot_survey_recvd" ng-model="finalReport.Main.Spot_Received" type="text">
+                    </div>
+                </div>  
+
+            </div>
+            
+            <!--REMARKS SECTION HIDDEN-->
+                            <!--<div class="row">
+                                <div class="col-md-12">              
+                                    <div class="form-group">
+                                        <label for="cause_nature_remarks">Remarks</label> 
+                                          <textarea class="form-control" name="cause_nature_remarks" ng-model="survey.cause_nature_remarks" rows="3"></textarea>
+                                    </div>  
+                                </div>  
+                            </div>-->
+            
+                        </div>
+                    </div><!--Second Panel-->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                          Cause and Nature of Accident
+                        </div>
+                        <div class="panel-body">
+                          <div class="form-group">
+                            <textarea class="form-control" name="cause_nature_accident"  ui-tinymce = "tinymceOptions" ng-model="finalReport.Main.Accident_Nature" rows="3"></textarea>
+                          </div>            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                          Other Details
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label for="load_passenger_details">Details of Load/Passenger</label> 
+                                <textarea class="form-control" name="load_passenger_details" ng-model="finalReport.Main.Load_Passanger" rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                              <label for="third_party_loss_injury">Third Party loss/ Injuries</label> 
+                              <textarea class="form-control" name="third_party_loss_injury" ng-model="finalReport.Main.Third_Party_Loss" rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="police_action">Police Action</label> 
+                                <textarea class="form-control" name="police_action" ng-model="finalReport.Main.Police_Action" rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="assessment">Assessment</label> 
+                                <textarea class="form-control" name="assessment"  ui-tinymce = "tinymceOptions" rows = "20" ng-model="finalReport.Main.Assessment" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-form>
+</div>
+
+
+<script type="text/ng-template" id="garageMaster.html">
+
+
+    <div class="modal-header">
+        <button type="button" class="close"  ng-click="cancel()" ><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title">Garage Master</h3>
+    </div>
+
+    <div class="modal-body">          
+        
+        <div class = "col-md-12 col-sm-12">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Existing Client List</h3>
+                </div>
+                
+                    <div id="grid3" ui-grid="garageTableGridOptions" ui-grid-selection ui-grid-edit class="garageBranchGrid" ng-if="garageTableGridOptions"></div>                                
+
+
+            </div>
+
+        </div>
+        
+        <div class = "col-md-12 col-sm-12"> 
+
+          <div class="panel panel-default">
+            
+            <div class="panel-heading">
+              <h3 class="panel-title">Garage Details</h3>
+            </div>
+            
+            <div class="panel-body">
+
+                <div class = "row">                  
+                                        
+                    <div class="col-md-12">
+                    
+                        <div class="row">
+                              
+                            <div class="col-md-12">                                              
+                              <label for = "insurer">Company:</label>
+                              <input class = "form-control" name = "insurer" type = "text" ng-model = "selectedGarage.Garage_Name">
+                            </div>
+
+                        </div>  
+
+                        <div class="row">
+                            
+                            <div class="col-md-12">                                                                                          
+                                <label for = "fee_based_on">Contact Person:</label>
+                                <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedGarage.Contact_Person">                                                                          
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            
+                            <div class="col-md-10">                                                                                                                                      
+                                <label for = "fee_based_on">Mobile:</label>
+                                <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedGarage.Contact_No">            
+                            </div>
+
+                            <div class="col-md-2" style = "margin-top: 35px;">                                                                                                                                      
+                                <label for = "fee_based_on">Authorized:</label>
+                                <input name = "fee_based_on" type = "checkbox" ng-model = "selectedGarage.Authorised">            
+                            </div>
+
+                        </div>
+                        
+                        <div class="row">
+
+                            <div class = "col-md-12">
+                                  <label for = "fee_based_on">Remark:</label>
+                                  <input class = "form-control" name = "fee_based_on" type = "text" ng-model = "selectedGarage.Remark">            
+                            </div>
+
+                        </div>
+                        
+                        <div class="row">
+                            
+                            <div class="col-md-12" style = "margin-top: 15px;">                                                                                                                                      
+                                <label for = "fee_based_on">Active:</label>
+                                <input name = "fee_based_on" type = "checkbox" ng-model = "selectedGarage.Active">            
+                            </div>
+
+                        </div>
+
+                    </div>      
+                   
+                </div>
+
+            </div>
+          
+            <div class="panel-footer">
+                
+                <div class = "row text-center">
+        
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                      <button type="button" class="btn btn-success"> <i class = "fa fa-plus"></i> Add</button>
+                      <button type="button" class="btn btn-success"><i class = "fa fa-file"></i> Modify</button>
+                      <button type="button" class="btn btn-success"><i class = "fa fa-floppy-o"></i> Save</button>
+                      <button type="button" class="btn btn-success"><i class = "fa fa-print"></i> Print</button>
+                      <button type="button" class="btn btn-success"><i class = "fa fa-ban"></i> Cancel</button>
+                      <button type="button" class="btn btn-success"><i class = "fa fa-times"></i> Close</button>
+                    </div>
+                
+                </div>
+            
+            </div>
+
+          </div>
+    
+        </div>
+        
+        	
+         <div class = "row text-center">
+    
+           
+            
+        </div>
+
+    </div>  
+
+</script>

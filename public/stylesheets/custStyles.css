@@ -1,0 +1,125 @@
+
+.myGrid {
+    width: 500px;
+    height: 250px;
+  }
+
+  /*.cGrid {
+  width: 500px;
+  height: 200px;
+}*/
+
+.cGrid {
+  width: 1115px;
+  height: 200px;
+}
+
+.newPartsGrid {
+    width: 1125px;
+    height: 200px;        
+}
+
+.spotDamagesGrid {
+    width: 1125px;
+    height: 200px;        
+}
+
+.mainReportsTableGrid {
+    width: 840px;
+    height: 200px;        
+}
+
+.lossObservationTableGrid {
+    width: 840px;
+    height: 130px;        
+}
+
+/*@media only screen and (max-width: 768px) {
+     For mobile phones: 
+    .cGrid {
+        width: 300px;
+        height: 200px;
+    }
+}*/
+
+.insurerGrid {
+    /*width: 840px;*/
+    height: 200px;        
+}
+
+.insurerFeesGrid {
+    /*width: 740px;*/
+    height: 200px;        
+}
+
+.vehicleGrid {
+    width: 840px;
+    height: 200px;        
+}
+
+.vehiclePartsGrid {
+    /*width: 740px;*/
+    height: 200px;        
+}
+
+.insurerBranchGrid {
+    width: 840px;
+    height: 200px;        
+}
+
+.garageBranchGrid {
+    width: 840px;
+    height: 200px;        
+}
+
+.ui-grid-icon-angle-down:before {
+        font-family: FontAwesome;
+        content: "\f0d7";
+    }
+
+.ui-grid-icon-sort-alt-up:before
+{
+        font-family: FontAwesome;
+        content: "\f160";
+}
+.ui-grid-icon-sort-alt-down:before
+{
+        font-family: FontAwesome;
+        content: "\f161";
+}
+.ui-grid-icon-cancel:before
+{
+        font-family: FontAwesome;
+        content: "\f00d";
+}
+
+.ui-grid-icon-ok:before
+{
+        font-family: FontAwesome;
+        content: "\f00c";
+}
+
+.dtpkr > .btn, .btn-default, .btn-default.focus, .btn-default:focus, .btn.focus, .btn:focus
+{       color: #000000 !important;
+        background-color: #ffffff !important;
+        border-color: #ffffff !important;
+}
+
+.glyphicon-chevron-left:before
+{
+        font-family: FontAwesome;
+        content: "\f060";
+}
+.glyphicon-chevron-right:before
+{
+        font-family: FontAwesome;
+        content: "\f061";
+}
+
+.custmodal-dialog{
+    overflow-y: initial !important
+}
+.custmodal-body{
+    height: 90%;
+    overflow-y: auto;
+}

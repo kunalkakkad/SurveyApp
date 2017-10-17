@@ -1,0 +1,79 @@
+
+<div class = "col-md-1">
+    <div class = "row text-center" style = "position: fixed; margin-left: -35px; margin-top: 43px;">    
+        <div class="btn-group-vertical" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary"> <i class = "fa fa-plus"></i> Add</button>
+            <button type="button" class="btn btn-primary"><i class = "fa fa-file"></i> Modify</button>
+            <button type="button" class="btn btn-primary"><i class = "fa fa-floppy-o"></i> Save</button>
+            <button type="button" class="btn btn-primary"><i class = "fa fa-floppy-o"></i> Save As</button>
+            <button type="button" class="btn btn-primary"><i class = "fa fa-ban"></i> Cancel</button>
+            <button type="button" class="btn btn-primary"><i class = "fa fa-print"></i> Print</button>
+            <button type="button" class="btn btn-primary"><i class = "fa fa-times"></i> Close</button>
+        </div>  
+    </div>
+</div>
+
+<div class="tab-pane fade in active" id="labour">
+  <div class="container col-md-11">
+        
+    <br>
+    <br>
+
+    <div class="table-responsive">
+      <table class="table table-bordered" style="text-align: left;">
+        <tr>
+          <th width="5%">#</th>
+          <th width="5%">Sub</th>
+          <th width="25%">Description</th>
+          <th width="15%">Estimate</th>
+          <th width="20%">Assessed</th>
+          <th width="20%">Tax</th>
+          <th width="10%"></th>
+        </tr>
+        <tr ng-cloak ng-repeat="labour in labours track by $index">
+          <td ng-bind="labour.labour_no"></td>
+          <td ng-bind="labour.labour_sub"></td>
+          <td ng-bind="labour.labour_description"></td>
+          <td ng-bind="labour.labour_estimate"></td>
+          <td ng-bind="labour.labour_assessed"></td>
+          <td ng-bind="labour.labour_tax"></td>
+          <td class = "text-center">
+            <button ng-click="removeLabour($index);" type="button" class="btn btn-danger btn-xs">
+              <i class="fa fa-minus-circle fa" aria-hidden="true"></i>
+            </button>
+          </td>
+        </tr>
+        <tr>
+           <td>
+            <input class="form-control" name="labour_no" ng-model="newLabour.labour_no" type="text">
+          </td>
+          <td>
+            <input class="form-control" name="labour_sub" ng-model="newLabour.labour_sub" type="text">
+          </td>
+          <td>
+            <input class="form-control" name="labour_description" ng-model="newLabour.labour_description" type="text">
+          </td>
+          <td>
+            <input class="form-control" name="labour_estimate" ng-model="newLabour.labour_estimate" type="text">
+          </td>
+          <td>
+            <input class="form-control" name="labour_assessed" ng-model="newLabour.labour_assessed" type="text">
+          </td>
+          <td>
+            <input class="form-control" name="labour_tax" ng-model="newLabour.labour_tax" type="text">
+          </td>
+          <td>
+
+            <button ng-click="addNewLabour();" type="button" class="btn btn-success btn-sm">
+              <!-- <i class="fa fa-plus-circle fa" aria-hidden="true"></i> -->
+              Add Labour Details
+            </button>
+
+          </td>
+        </tr>
+        
+      </table>
+    </div>
+  </div>
+  
+</div>
